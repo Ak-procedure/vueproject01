@@ -1,6 +1,7 @@
 <template>
     <div id="MyHeader">
   <router-link :to="{path:'/zj1'}">组件1</router-link>
+      <router-link :to="{path:'/zj2'}">组件2</router-link>
     </div>
 </template>
 
