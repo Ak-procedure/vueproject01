@@ -10,7 +10,7 @@
       <div>
         <ul>
           <li v-for="(v,i) in msgs">
-            <router-link :to="{path:'pros'}">
+            <router-link :to="{path:'foods'}">
             <p>{{v.name}}</p>
             <p>{{v.address}}</p>
             </router-link><hr>

@@ -7,6 +7,8 @@ import First from '../components/first/FirstOne'
 import Zhang from  '../components/text_zhang/tem_zhang'
 import City from  '../components/ComsL/Citys'
 import j1 from '../components/ComsL/J1L'
+import Foods from '../components/ComsL/Foods'
+import Shangjia from '../components/ComsL/Shangjia'
 export default new Router({
   routes: [
     {path: '/zj1', component: ComL1},
@@ -14,6 +16,7 @@ export default new Router({
     {path: '/zj3', component: Zhang},
     {path: '/zj4', component: City},
     {path: '/jump', component: j1},
-
+    {path:'/foods',component:Foods},
+    {path:'/shangjia',component:Shangjia},
   ]
 })
