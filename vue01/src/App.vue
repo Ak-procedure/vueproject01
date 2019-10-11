@@ -1,17 +1,14 @@
 <template>
   <div id="app">
-    <MyHeader></MyHeader>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import MyHeader from './components/ComsL/MyHeader';
+
   export default {
     name: 'App',
-    components: {
-      MyHeader
-    },
+    components: {},
   }
 </script>
 

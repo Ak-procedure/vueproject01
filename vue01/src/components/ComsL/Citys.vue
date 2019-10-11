@@ -16,14 +16,13 @@
     <div id="HotCity">
       <span>热门城市</span>
       <hr>
-      <ul>
+      <ul class="ul1">
         <li>
-          <router-link  v-for="(a,b) in arr3" :key="b" :to="{}">{{a.name}}</router-link>
+          <router-link  v-for="(a,b) in arr3" :key="b" :to="{path:'/jump',query:a}">{{a.name}}</router-link>
         </li>
       </ul>
     </div>
 
-    <button @click="getdata">点击</button>
     <ul>
       <li v-for="(v,i) in arr2" :key="i">
         <p>{{v}}</p>
@@ -46,28 +45,19 @@
       }
     },
     created(){
-      hot:{
         this.axios.get('http://elm.cangdu.org/v1/cities?type=hot').then((res)=>{
         this.arr3 = res.data;
+        }).then(()=>{
+          this.axios.get('https://elm.cangdu.org/v1/cities?type=group').then((res) => {
+            let arr2 = [];
+            this.arr1 = res.data;
+            for (let v in res.data) {
+              arr2.push(v)
+            }
+            arr2.sort();
+            this.arr2 = arr2;
+          })
         })
-      }
-    },
-    methods: {
-      getdata() {
-        this.axios.get('https://elm.cangdu.org/v1/cities?type=group').then((res) => {
-          let arr2 = [];
-          this.arr1 = res.data;
-          for (let v in res.data) {
-            arr2.push(v)
-          }
-          arr2.sort();
-          this.arr2 = arr2;
-        })
-      },
-      jumpp(v){
-        console.log(v)
-      }
-
     }
   }
 </script>
@@ -127,5 +117,8 @@ a{
 
   li{
     overflow: hidden;
+  }
+  .ul1>li a{
+    color: cornflowerblue;
   }
 </style>
