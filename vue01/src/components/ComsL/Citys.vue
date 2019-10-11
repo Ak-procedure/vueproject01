@@ -12,9 +12,12 @@
       <div class="empty"></div>
     </div>
       <hr>
-      <h3 class="rightPiont_z">></h3>
+    <div class="Piont">
+      <a href="###" class="rightPiont_z">
+        <span>></span></a>
+    </div>
     <div id="HotCity">
-      <span>热门城市</span>
+      <div>热门城市</div>
       <hr>
       <ul class="ul1">
         <li>
@@ -22,8 +25,8 @@
         </li>
       </ul>
     </div>
-
-    <ul>
+<!--所有城市-->
+    <ul class="ul2">
       <li v-for="(v,i) in arr2" :key="i">
         <p>{{v}}</p>
         <router-link v-for="(x,y) in arr1[v]" :to="{path:'/jump',query:x}" :key="y">
@@ -71,54 +74,130 @@
   html,body {
     width: 100%;
     height: 100%;
+
   }
-  p{
-    border: 0.1px solid black;
-    padding: 3px;
+  /*热门城市*/
+  .ul1 a{
+    background-color: white;
+    border-right: none;
+    float: left;
+    box-sizing: border-box;
+    text-align: center;
+    color: #3190e8;
+    border-bottom: .025rem solid #e4e4e4;
+    border-right: .025rem solid #e4e4e4;
+    width: 25%;
+    height: 1.75rem;
+    font: .9rem/1.75rem Microsoft YaHei;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
-a{
-  box-sizing: border-box;
-  display: block;
-  width:24.5%;
-  /*font-size: 10px;*/
-  text-align: center;
-  border: 0.5px solid black;
-  margin: 0.5px;
-  padding:5px 0;
-  float: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: black;
-  text-decoration: none;
-}
+
 #Dwcity {
-  line-height: 40px;
+  display: flex;
+  margin-top: 2rem;
+  justify-content: space-between;
+  line-height: 1.45rem;
+  padding: 0 .45rem;
+  font-size: .55rem;
+  color: #666;
+  background: white;
 }
 
 #CityHeader {
-  background: blue;
-  color: white;
+  background-color: #3190e8;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
   width: 100%;
-  height: 35px;
+  height: 1.95rem;
+  color:white;
 }
-  .left_z,.left01_z {
-  float: left;
+  .left_z {
+    left: .4rem;
+    font-weight: 400;
+    font-size: .7rem;
+    color: #fff;
+    width: 2.3rem;
+    height: .7rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
+  .right_z{
+    right: .55rem;
+    font-size: .65rem;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
   .right_z,.right01_z {
   float: right;
 }
-  .rightPiont_z {
-  margin-left: 45px;
+.Piont{
+  margin-bottom: .5rem;
+  background: white;
 }
+  .rightPiont_z {
+    display: block;
+    width: 100%;
+    height: 1.5rem;
+    overflow: hidden;
+    /*background: red;*/
+    border-bottom: 1px solid #e4e4e4;
+    margin-bottom: 0.5rem;
+}
+  .rightPiont_z span{
+    float: right;
+  }
   .empty{
     clear: both;
   }
-
+  /*所有动态创建的li标签*/
   li{
     overflow: hidden;
+    background-color: white;
+    margin-bottom: .4rem;
+    border-bottom: 1px solid #e4e4e4;
   }
-  .ul1>li a{
-    color: cornflowerblue;
+  /*城市首字母*/
+ p{
+   height: 1.6rem;
+   line-height: 1.6rem;
+   color: #666;
+   font-weight: 400;
+   text-indent: .45rem;
+   border-top: 2px solid #e4e4e4;
+   border-bottom: 1px solid #e4e4e4;
+   font: .75rem/1.45rem Helvetica Neue;
+ }
+  /*所有城市*/
+  .ul2 a{
+    border-right: none;
+    float: left;
+    box-sizing: border-box;
+    text-align: center;
+    color: #666;
+    border-bottom: .025rem solid #e4e4e4;
+    border-right: .025rem solid #e4e4e4;
+    width: 25%;
+    height: 2.5rem;
+    font: .9rem/1.75rem Microsoft YaHei;
+    /*font-size: .6rem;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 2.5rem;
+  }
+  #HotCity >div {
+    color: #666;
+    font-weight: 400;
+    text-indent: .45rem;
+    border-top: 2px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    font: .55rem/1.45rem Helvetica Neue;
+    background: white;
   }
 </style>

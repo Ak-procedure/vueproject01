@@ -7,7 +7,10 @@ import VueAxios from 'vue-axios'
 import axios from 'axios'
 Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
-
+import Vant from 'vant';
+import 'vant/lib/index.css';
+import '../src/assets/js/PeiShi_w'
+Vue.use(Vant);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

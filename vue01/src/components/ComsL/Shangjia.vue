@@ -13,11 +13,16 @@
     </div>
 <div id="pros">
 <div id="left">
-  <ul>
-    <li v-for="(v,i) in shangpin">
-      <a href="###">{{v.name}}</a>
-    </li>
-  </ul>
+  <van-sidebar v-model="activeKey">
+    <van-sidebar-item title="标签名称" info="5" :to="{path:'/test'}" />
+    <van-sidebar-item title="标签名称" />
+    <van-sidebar-item title="标签名称" />
+  </van-sidebar>
+  <!--<ul>-->
+    <!--<li v-for="(v,i) in shangpin">-->
+      <!--<a href="###">{{v.name}}</a>-->
+    <!--</li>-->
+  <!--</ul>-->
 </div>
   <div id="right"></div>
 </div>
@@ -30,7 +35,8 @@
     data() {
       return {
         shangpin: '',
-        getS: ''
+        getS: '',
+        activeKey:0
       }
     },
     created() {
@@ -53,19 +59,5 @@
   #header {
     background-color: rgba(119, 103, 137, .43);
   }
-  #pros{
-    display: flex;
-    width: 100%;
-    height: 100%;
-  }
-  #left{
-    width: 35%;
-    height: 100%;
-    background: gold;
-  }
-  #right{
-    width: 65%;
-    height: 100%;
-    background:greenyellow;
-  }
+
 </style>
