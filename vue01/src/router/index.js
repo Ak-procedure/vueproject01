@@ -7,7 +7,7 @@ import City from  '../components/ComsL/Citys'
 import j1 from '../components/ComsL/J1L'
 import Foods from '../components/ComsL/Foods'
 import Shangjia from '../components/ComsL/Shangjia'
-import Test from  '../components/ComlJ/test'
+import Test from  '../components/ComJ/test'
 export default new Router({
   routes: [
     {path: '/', component: City},
