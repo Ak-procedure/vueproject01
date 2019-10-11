@@ -3,10 +3,13 @@
     <router-link :to="{path:'/zj1'}">组件1</router-link>
     <router-link :to="{path:'/zj2'}">组件2</router-link>
     <router-link :to="{path:'/zj3'}">组件3</router-link>
+    <router-link :to="{path:'/zj4'}">组件4</router-link>
+
   </div>
 </template>
 
 <script>
+
   export default {
     name: "MyHeader"
   }
