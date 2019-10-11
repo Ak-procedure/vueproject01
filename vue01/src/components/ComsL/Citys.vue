@@ -1,5 +1,28 @@
 <template>
   <div id="Citys">
+
+    <div id="CityHeader">
+    <span class="left_z">ele.me</span>
+    <span class="right_z">登录|注册</span>
+    <div class="empty"></div>
+    </div>
+    <div id="Dwcity">
+      <span class="left01_z">当前定位城市</span>
+      <span class="right01_z">定位不准时，请在城市列表中选择</span>
+      <div class="empty"></div>
+    </div>
+      <hr>
+      <h3 class="rightPiont_z">></h3>
+    <div id="HotCity">
+      <span>热门城市</span>
+      <hr>
+      <ul>
+        <li>
+          <router-link  v-for="(a,b) in arr3" :key="b" :to="{}">{{a.name}}</router-link>
+        </li>
+      </ul>
+    </div>
+
     <button @click="getdata">点击</button>
     <ul>
       <li v-for="(v,i) in arr2" :key="i">
@@ -10,6 +33,7 @@
       </li>
     </ul>
   </div>
+
 </template>
 <script>
   export default {
@@ -17,7 +41,15 @@
     data() {
       return {
         arr1: [],
-        arr2: []
+        arr2: [],
+        arr3: []
+      }
+    },
+    created(){
+      hot:{
+        this.axios.get('http://elm.cangdu.org/v1/cities?type=hot').then((res)=>{
+        this.arr3 = res.data;
+        })
       }
     },
     methods: {
@@ -35,14 +67,24 @@
       jumpp(v){
         console.log(v)
       }
+
     }
   }
 </script>
 
 <style scoped>
+  * {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+  }
+  html,body {
+    width: 100%;
+    height: 100%;
+  }
   p{
-    border: 0.5px solid black;
-
+    border: 0.1px solid black;
+    padding: 3px;
   }
 a{
   box-sizing: border-box;
@@ -60,9 +102,29 @@ a{
   color: black;
   text-decoration: none;
 }
+#Dwcity {
+  line-height: 40px;
+}
+
+#CityHeader {
+  background: blue;
+  color: white;
+  width: 100%;
+  height: 35px;
+}
+  .left_z,.left01_z {
+  float: left;
+}
+  .right_z,.right01_z {
+  float: right;
+}
+  .rightPiont_z {
+  margin-left: 45px;
+}
   .empty{
     clear: both;
   }
+
   li{
     overflow: hidden;
   }
