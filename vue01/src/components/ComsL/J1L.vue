@@ -4,7 +4,7 @@
         <!--向左箭头-->
         <router-link :to="{path:'/'}">返回</router-link>
         <span>{{city1.name}}</span>
-        <span>登录/注册</span>
+        <router-link :to="{path:'/mine'}">登录/注册</router-link>
       </div>
     <div class="one">
 
@@ -125,7 +125,8 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .title>span:nth-child(3){
+  .title>a:nth-child(3){
+    color: white;
     margin-right: .5rem;
     float:right;
   }

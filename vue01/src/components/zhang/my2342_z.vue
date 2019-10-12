@@ -1,7 +1,7 @@
 <template>
     <div id="mine_z">
       <div class="myde_z">
-      <router-link :to="{path:'/youhui',query:{msg:'我的优惠'}}" class="pointLeft_z"><</router-link>
+      <router-link :to="{}" class="pointLeft_z"><</router-link>
       <span class="text_z">我的</span>
       </div>
       <div class="xian_z"></div>
@@ -46,7 +46,7 @@
           </p>
         </router-link>
 
-        <router-link :to="{}">
+        <router-link :to="{path:'/Myhuiyuan_z'}">
           <p class="hr_z">
             <span >饿了么会员卡</span>
             <span class="you_z">></span>
@@ -55,13 +55,13 @@
 
       </div>
       <div class="dingdan_z">
-        <router-link :to="{}">
+        <router-link :to="{path:'/ServerCenter'}">
           <p class="hr_z">
             <span>服务中心</span>
             <span class="you_z">></span>
           </p>
         </router-link>
-        <router-link :to="{}">
+        <router-link :to="{path:'/DownLoad'}">
           <p class="hr_z">
             <span>下载饿了么APP</span>
             <span class="you_z">></span>

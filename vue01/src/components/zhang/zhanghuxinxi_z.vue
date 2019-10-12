@@ -1,7 +1,7 @@
 <template>
   <div id="mine_z">
     <div class="myde_z">
-      <router-link :to="{path:'/'}" class="pointLeft_z"><</router-link>
+      <router-link :to="{}" class="pointLeft_z"><</router-link>
       <span class="text_z">{{msg}}</span>
     </div>
 

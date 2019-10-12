@@ -2,9 +2,9 @@
   <div id="foods">
     <div id="nav">
       <!--向左箭头-->
-      <router-link :to="{path:'/jump'}">返回</router-link>
+      <router-link :to="{}">返回</router-link>
       <span>{{getCityRes.address}}</span>
-      <span>登录/注册</span>
+      <router-link :to="{path:'/mine'}">登录/注册</router-link>
     </div>
     <div id="tit">
       <van-swipe class="lbt" indicator-color="white">
@@ -214,7 +214,8 @@
     white-space: nowrap;
   }
 
-  #nav > span:nth-child(3) {
+  #nav > a:nth-child(3) {
+    color: white;
     margin-right: .5rem;
     float: right;
   }

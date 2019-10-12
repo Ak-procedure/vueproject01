@@ -3,7 +3,7 @@
 
     <div id="CityHeader">
     <span class="left_z">ele.me</span>
-    <router-link :to="{path:'/test'}" class="right_z">登录|注册</router-link>
+    <router-link :to="{path:'/mine'}" class="right_z">登录|注册</router-link>
     <div class="empty"></div>
     </div>
     <div id="Dwcity">

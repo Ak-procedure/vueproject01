@@ -54,6 +54,7 @@
     line-height: 3rem;
   }
   .msg{
+    margin-top: 3rem;
     font-size: 1.3rem;
     padding: 0 0.7rem;
   }
