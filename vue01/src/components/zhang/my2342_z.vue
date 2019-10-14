@@ -1,7 +1,7 @@
 <template>
   <div id="mine_z">
     <div class="myde_z">
-      <router-link :to="{}" class="pointLeft_z"><</router-link>
+      <span @click="back" class="pointLeft_z"><</span>
       <span class="text_z">我的</span>
     </div>
     <div class="xian_z"></div>
@@ -81,7 +81,12 @@
 
 <script>
   export default {
-    name: "my2342_z"
+    name: "my2342_z",
+    methods:{
+      back() {
+        this.$router.go(-1)
+      }
+    }
   }
 </script>
 

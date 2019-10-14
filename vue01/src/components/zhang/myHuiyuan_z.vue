@@ -2,7 +2,7 @@
   <div id="mine_z">
 
     <div class="myde_z">
-      <router-link :to="{path:'/'}" class="pointLeft_z"><</router-link>
+      <span @click="back" class="pointLeft_z"><</span>
       <span class="text_z">{{msg}}</span>
     </div>
 
@@ -81,6 +81,11 @@
     },
     created(){
       this.msg=this.$route.query.msg
+    },
+    methods:{
+      back() {
+        this.$router.go(-1)
+      }
     }
   }
 </script>

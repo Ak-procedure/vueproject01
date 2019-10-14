@@ -1,8 +1,8 @@
 <template>
   <div id="mine_z">
     <div class="myde_z">
-      <router-link :to="{}" class="pointLeft_z"><</router-link>
-      <span class="text_z">{{msg}}</span>
+      <span @click="back" class="pointLeft_z"><</span>
+      <span class="text_z">账户信息</span>
     </div>
 
     <div class="profile-info">
@@ -10,7 +10,6 @@
         <input  type="file" class="profileinfopanel-upload">
         <h2>头像</h2>
         <div class="headportrait-div">
-
           <router-link :to="{}"class="pointR_z"> <img src="//elm.cangdu.org/img/default.jpg" class="headportrait-div-top">></router-link>
         </div>
       </div>
@@ -69,6 +68,11 @@
     },
     created(){
       this.msg=this.$route.query.msg
+    },
+    methods:{
+      back() {
+        this.$router.go(-1)
+      }
     }
   }
 </script>

@@ -11,13 +11,14 @@ import FoodClass from  '../components/ComsL/foodsClass'
 import Mine from '../components/zhang/my2342_z'
 import zhanghuxinxi from '../components/zhang/zhanghuxinxi_z'
 import MyYe from '../components/zhang/myYue_z'
-import MyYouhui_z from  '../components/zhang/myHuiyuan_z'
+import MyYouhui_z from  '../components/zhang/myYouhui_z'
 import MyJifen_z from  '../components/zhang/myJifen_z'
 import Myhuiyuan_z from  '../components/zhang/myHuiyuan_z'
 import ServerCenter from '../components/ComJ/ServerCenter'
 import  DownLoad from  '../components/ComJ/ElmDownloading'
 import SuperDes from  '../components/ComJ/SuperDes'
 import SearchFood from '../components/ComsL/search'
+import Duihuanhuiyuan from  '../components/zhang/duihuanhuiyuan'
 export default new Router({
   routes: [
     {path: '/', component: City},
@@ -34,6 +35,7 @@ export default new Router({
     {path:'/ServerCenter',component:ServerCenter},
     {path:'/DownLoad',component:DownLoad},
     {path:'/super',component:SuperDes},
-    {path:'/search',component:SearchFood}
+    {path:'/search',component:SearchFood},
+    {path:'/duihuanhuiyuan',component:Duihuanhuiyuan}
   ]
 })
