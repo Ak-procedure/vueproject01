@@ -30,7 +30,8 @@
                 {{showF.description}}
                 <span>···</span>
               </div>
-              <div class="right_c" v-for="(v,i) in showF.foods" :key="i">
+              <div v-for="(v,i) in showF.foods" :key="i">
+                <router-link :to="{path:'/shangpinXQ',query:v}"  class="right_c">
                 <div>
                 <img :src="'//elm.cangdu.org/img/'+v.image_path" alt="">
                   <!--图片左上角新品标签-->
@@ -55,6 +56,7 @@
                     起</p>
                 </div>
               </div>
+                </router-link>
                 <div class="foot">
                   <span>+</span>
                 </div>
@@ -283,6 +285,7 @@
     overflow: hidden;
     display: flex;
     flex-flow:row wrap;
+    color: #666;
   }
   .right_c>div:nth-child(1){
     background: white;
@@ -308,11 +311,13 @@
     color: white;
   }
   .right_c>div:nth-child(2){
+    box-sizing: border-box;
     background: white;
     padding-left: .5rem;
     padding-top: .5rem;
     width: 80%;
-    box-sizing: border-box;
+    position: relative;
+    margin-left: -.05rem;
   }
   .right_c>div:nth-child(3){
    line-height: 2rem;
@@ -321,16 +326,21 @@
    border-bottom: 1px solid #e2e2e2;
     padding-bottom: .3rem;
   }
-  .right_c>div:nth-child(3) span{
+  .foot span{
     display: block;
     width: 2rem;
-    line-height: 1.9rem;
+    line-height: 2rem;
     background: cornflowerblue;
     border-radius: 50%;
     color: white;
     text-align: center;
     float: right;
     margin-right: 1rem;
+  }
+  .foot{
+  overflow: hidden;
+    background: white;
+    margin-bottom: .5rem;
   }
   .right_c>div:nth-child(1)>img{
     margin-top: .5rem;
@@ -539,4 +549,5 @@
     color: white;
     font-size: 1.2rem;
   }
+
 </style>

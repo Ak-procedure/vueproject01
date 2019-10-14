@@ -298,5 +298,11 @@
     padding: .43rem;
     border-radius: .22rem;
   }
+  .category_title{
+    display: flex;
+  }
 
+  .category_title>span{
+    width: 50%;
+  }
 </style>

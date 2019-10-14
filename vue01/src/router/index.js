@@ -20,6 +20,7 @@ import SuperDes from  '../components/ComJ/SuperDes'
 import SearchFood from '../components/ComsL/search'
 import Duihuanhuiyuan from  '../components/zhang/duihuanhuiyuan'
 import TuiJian from '../components/zhang/TuiJianYouJiang'
+import ShangpinXQ from  '../components/ComsL/shangpinxiangqig'
 export default new Router({
   routes: [
     {path: '/', component: City},
@@ -38,6 +39,7 @@ export default new Router({
     {path:'/super',component:SuperDes},
     {path:'/search',component:SearchFood},
     {path:'/duihuanhuiyuan',component:Duihuanhuiyuan},
-    {path:'/tuijian',component:TuiJian}
+    {path:'/tuijian',component:TuiJian},
+    {path:'/shangpinXQ',component:ShangpinXQ}
   ]
 })

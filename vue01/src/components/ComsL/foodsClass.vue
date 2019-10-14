@@ -104,6 +104,7 @@
           }
       },
       created(){
+          this.$store.state.showOrNot=true;
           this.title=this.$route.query;
         this.axios.get('https://elm.cangdu.org/shopping/v2/restaurant/category').then((res)=>{
           console.log(res.data);
@@ -286,4 +287,8 @@ line-height: 3.7rem;
   height: 3rem;
 
 }
+
+  .foodsClass{
+    margin-top: 1rem;
+  }
 </style>
