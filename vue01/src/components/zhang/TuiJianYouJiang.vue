@@ -1,8 +1,8 @@
 <template>
     <div id="mine_z">
       <div class="myde_z">
-        <router-link :to="{}" class="pointLeft_z"><</router-link>
-        <span class="text_z">{{msg}}</span>
+        <span @click="back" class="pointLeft_z"><</span>
+        <span class="text_z">推荐有奖</span>
       </div>
 
       <img src="http://cangdu.org/elm/static/img/activity.png">
@@ -66,6 +66,9 @@
         this.msg=this.$route.query.msg
       },
       methods :{
+        back() {
+          this.$router.go(-1)
+        },
         changeS(){
            this.nnn= !this.nnn;
         },
