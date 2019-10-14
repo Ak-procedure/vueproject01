@@ -77,46 +77,46 @@
 
   }
   .dd_z {
-    padding: .3rem;
+    padding: 0.43rem;
     background-color: #3190e8;
   }
   .asd_z {
-    padding: .4rem;
+    padding: 0.58rem;
     background-color: #fff;
-    border-radius: .15rem;
+    border-radius: .22rem;
   }
   .date01_z {
     display: flex;
     justify-content: space-between;
-    font-size: .55rem;
+    font-size: .8rem;
   }
   .contetn {
     display: flex;
     align-items: center;
   }
   .zero0_z span:nth-of-type(1) {
-    font-size: 1.8rem;
+    font-size: 2.6rem;
   }
   .zero0_z span:nth-of-type(2) {
-    font-size: .7rem;
+    font-size: 1rem;
   }
   .end_z {
     width:100%;
-    height: 2rem;
-    font-size: .8rem;
+    height: 2.92rem;
+    font-size: 1.17rem;
     color: #fff;
-    border-radius: .15rem;
-    line-height: 2rem;
-    margin-top: 1rem;
+    border-radius: .22rem;
+    line-height: 2.92rem;
+    margin-top: 1.46rem;
     text-align: center;
     background-color: #ccc;
-    padding: .4rem 44.5%;
+    padding: .58rem 44.5%;
   }
   .deal_detail {
-    font-size: .6rem;
+    font-size: .88rem;
     color: #999;
-    line-height: 2rem;
-    padding-left: .5rem;
+    line-height: 2.92rem;
+    padding-left: .73rem;
   }
   .no_log {
     text-align: center;
@@ -126,6 +126,6 @@
     height: 117.2px;
   }
   .no_log p {
-    font-size: .7rem;
+    font-size: 1rem;
   }
 </style>

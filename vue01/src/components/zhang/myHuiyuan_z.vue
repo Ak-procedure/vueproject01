@@ -49,37 +49,40 @@
           <div class="apply_vip_buy_right">购买</div>
         </div>
       </div>
-      <router-link :to="{}"  href="#/vipcard/useCart" class="header_style common_style">
+
+      <router-link :to="{path: '/duihuanhuiyuan',query: {msg:'兑换会员'}}"  href="#/vipcard/useCart" class="header_style common_style">
         <span class="header_left">兑换会员</span>
         <div class="header_right">
           <span >使用卡号卡密</span>
-          <router-link :to="{}" class="pointR_z">></router-link>
+          <div class="pointR_z">></div>
         </div>
       </router-link>
+
       <router-link :to="{}" href="#/vipcard/invoiceRecord" class="header_style common_style">
         <span class="header_left">购买记录</span>
         <div class="header_right">
           <span>开发票</span>
-          <router-link :to="{}" class="pointR_z">></router-link>
+          <div class="pointR_z">></div>
         </div>
       </router-link>
+
     </div>
 
   </div>
 </template>
 
 <script>
-    export default {
-        name: "myHuiyuan_z",
-      data(){
-        return{
-          msg:''
-        }
-      },
-      created(){
-        this.msg=this.$route.query.msg
+  export default {
+    name: "myHuiyuan_z",
+    data(){
+      return{
+        msg:''
       }
+    },
+    created(){
+      this.msg=this.$route.query.msg
     }
+  }
 </script>
 
 <style scoped>
@@ -105,102 +108,105 @@
     margin-left: 30%;
   }
   .buy_for {
-    font-size: .6rem;
+    font-size: .88rem;
     color: #666;
-    line-height: 2rem;
-    padding-left: .7rem;
+    line-height: 2.92rem;
+    padding-left: 1.03rem;
   }
   .buy_for span {
     font-weight: 700;
   }
   .vip_prerogative {
     background-color: #fff;
-    padding-left: .7rem;
-    margin-bottom: .5rem;
+    padding-left: 1.03rem;
+    margin-bottom: 0.73rem;
   }
   .header_style {
     display: flex;
     justify-content: space-between;
     background-color: #fff;
-    line-height: 2rem;
+    line-height: 2.92rem;
     border-bottom: 1px solid #f5f5f5;
-    padding-right: .7rem;
+    padding-right: 1.03rem;
   }
-   .header_left {
-    font-size: .7rem;
+  .header_left {
+    font-size: 1.03rem;
     color: #333;
+    /*margin-left: 1rem;*/
   }
-   .header_right {
+  .header_right {
     display: flex;
     align-items: center;
   }
   .header_right span:nth-of-type(1) {
-    font-size: .6rem;
+    font-size: .88rem;
     color: #999;
-    margin-right: .2rem;
+    margin-right: .3rem;
   }
   .header_right span:nth-of-type(2) {
-    width: .5rem;
-    height: .5rem;
+    width: 0.73rem;
+    height: .73rem;
   }
-   .vip_detail {
+  .vip_detail {
     display: flex;
     border-bottom: 1px solid #f5f5f5;
-    padding: .8rem 0;
+    padding: 1.3rem 0;
   }
   .vip_detail_left {
-    margin-right: .6rem;
+    margin-right: .88rem;
   }
   .vip_detail_left img {
-    width: 1.6rem;
-    height: 1.8rem;
+    width: 2.3rem;
+    height: 2.6rem;
   }
-   .vip_detail_right h4 {
-    font-size: .7rem;
+  .vip_detail_right h4 {
+    font-size: 1rem;
     color: #333;
     font-weight: 400;
   }
   .vip_detail_right p {
-    font-size: .5rem;
+    font-size: 0.73rem;
     color: #999;
   }
   .apply_vip {
     background-color: #fff;
-    padding-left: .7rem;
-    margin-bottom: .5rem;
+    padding-left: 1rem;
+    margin-bottom: 0.73rem;
   }
   .common_style {
-    padding: 0 .7rem;
-    margin-bottom: .5rem;
+    margin-bottom:0.73rem;
+  }
+  .common_style span {
+    margin-left: 1rem;
   }
   .header_style{
     display: flex;
     justify-content: space-between;
     background-color: #fff;
-    line-height: 2rem;
+    line-height: 2.92rem;
     border-bottom: 1px solid #f5f5f5;
-    padding-right: .7rem;
+    padding-right: 1rem;
   }
-   .header_left {
-    font-size: .7rem;
+  .header_left {
+    font-size:1rem;
     color: #333;
   }
   .apply_vip_buy {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-right: .7rem;
-    font-size: .7rem;
-    line-height: 2.6rem;
+    padding-right: 1rem;
+    font-size: 1rem;
+    line-height: 3.8rem;
   }
   .apply_vip_buy_right {
-    border: .025rem solid #f60;
-    border-radius: .2rem;
-    line-height: 1.2rem;
-    height: 1.2rem;
-    width: 2.6rem;
+    border: .05rem solid #f60;
+    border-radius: .3rem;
+    line-height: 1.75rem;
+    height: 1.75rem;
+    width: 3.8rem;
     text-align: center;
-    font-size: .6rem;
+    font-size: .88rem;
     color: #f60;
   }
   .apply_vip_buy_left span:nth-of-type(2) {
@@ -211,12 +217,12 @@
     display: flex;
     justify-content: space-between;
     background-color: #fff;
-    line-height: 2rem;
+    line-height: 2.92rem;
     border-bottom: 1px solid #f5f5f5;
-    padding-right: .7rem;
+    padding-right: 1rem;
   }
   .header_left {
-    font-size: .7rem;
+    font-size: 1rem;
     color: #333;
   }
   .header_right{
@@ -224,12 +230,12 @@
     align-items: center;
   }
   .header_right span {
-    font-size: .6rem;
+    font-size: .88rem;
     color: #999;
-    margin-right: .2rem;
+    margin-right: .3rem;
   }
   .pointR_z {
-    font-size: .8rem;
+    font-size: 1.16rem;
     color: #999;
   }
 </style>
