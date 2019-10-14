@@ -11,10 +11,21 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 import '../src/assets/js/PeiShi_w'
 Vue.use(Vant);
+
+import Vuex from 'vuex';
+Vue.use(Vuex);
+
+const store = new Vuex.Store({
+  state:{
+    showOrNot:false
+  }
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
-})
+  template: '<App/>',
+  store
+});

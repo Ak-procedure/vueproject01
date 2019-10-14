@@ -1,14 +1,20 @@
 <template>
   <div id="app">
     <router-view></router-view>
+    <BottomCom v-if="this.$store.state.showOrNot"></BottomCom>
   </div>
 </template>
 
 <script>
 
+  import BottomCom from "./components/ComsL/BottomCom";
   export default {
     name: 'App',
-    components: {},
+    components: {BottomCom},
+    created(){
+      this.$store.state.showOrNot=false;
+      // console.log(this.$store.state.showOrNot);
+    }
   }
 </script>
 

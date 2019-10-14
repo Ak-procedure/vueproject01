@@ -2,8 +2,8 @@
   <div id="foods">
     <div id="nav">
       <!--向左箭头-->
-      <router-link :to="{}">返回</router-link>
-      <span>{{getCityRes.address}}</span>
+      <span @click="back">返回</span>
+      <router-link :to="{path:'/jump'}">{{getCityRes.address}}</router-link>
       <router-link :to="{path:'/mine'}">登录/注册</router-link>
     </div>
     <div id="tit">
@@ -35,28 +35,33 @@
     <div id="food">
       <div class="fjsj">附近商家</div>
       <router-link v-for="(v,k) in food" :to="{path:'/shangjia',query:v}" :key="k">
-        <van-card
-          :thumb="'//elm.cangdu.org/img/'+v.image_path"
-       class="spzujian" >
-          <div slot="tags" class="cards">
+        <!--<van-card-->
+        <!--:thumb="'//elm.cangdu.org/img/'+v.image_path"-->
+        <!--class="spzujian" >-->
+        <div class="spzujian">
+          <div>
+            <img :src="'//elm.cangdu.org/img/'+v.image_path" alt=""></div>
+          <div class="cards">
             <ul>
               <li>
-                <span class="bigtitle">{{v.name}}</span>
+                <span class="bigtitle">
+                  <span>品牌</span>
+                  {{v.name}}</span>
                 <span class="bzp">
          <span v-for="(x,y) in v.supports" :key="y">{{x.icon_name}}</span>
        </span>
               </li>
               <li>
                 <span class="ys">
-<van-rate
-  v-model="v.rating"
-  allow-half
-  size="6"
-  gutter="1"
-  color="orange"
-  void-icon="star"
-  void-color="#eee"
-/>
+                  <van-rate
+                    v-model="v.rating"
+                    allow-half
+                    size="6"
+                    gutter="1"
+                    color="orange"
+                    void-icon="star"
+                    void-color="#eee"
+                  />
                   <span>{{v.rating}}</span>
                   月售{{v.recent_order_num}}单</span>
                 <span class="fnzsd">
@@ -64,15 +69,22 @@
                 <span class="zsd"> {{v.supports[1].name}}</span>
                 </span>
               </li>
-              <li>￥{{v.float_minimum_order_amount}}起送/{{v.piecewise_agent_fee.tips}}</li>
+              <li class="threeLis">
+                <span>
+                ￥{{v.float_minimum_order_amount}}起送/{{v.piecewise_agent_fee.tips}}
+                </span>
+                <span>
+                  <span>{{v.distance}}</span>
+                  <span>/{{v.order_lead_time}}</span>
+                </span>
+              </li>
             </ul>
           </div>
-        </van-card>
+        </div>
+        <!--</van-card>-->
       </router-link>
     </div>
-    <div id="footer">
-      <!--底部导航组件-->
-    </div>
+
   </div>
 </template>
 
@@ -89,6 +101,7 @@
       }
     },
     created() {
+      this.$store.state.showOrNot = true;
       this.getCityRes = this.$route.query;
       // console.log(this.$route.query);
       this.axios.get('https://elm.cangdu.org/v2/index_entry').then((res) => {
@@ -97,10 +110,15 @@
         this.foods2 = FunData(res.data)[1];
       }).then(() => {
         this.axios.get('https://elm.cangdu.org/shopping/restaurants?latitude=31.22967&longitude=121.4762').then((res) => {
-          // console.log(res.data);
+          console.log(res.data);
           this.food = res.data
         })
       })
+    },
+    methods: {
+      back() {
+        this.$router.go(-1)
+      }
     }
   }
 
@@ -124,7 +142,6 @@
 <style scoped>
   #foods {
     background: #f2f2f2;
-    height: 100%;
   }
 
   .foote {
@@ -140,9 +157,22 @@
     font-weight: 700;
   }
 
+  .bigtitle > span {
+    content: "\54C1\724C";
+    display: inline-block;
+    font-size: .5rem;
+    line-height: .6rem;
+    color: #333;
+    background-color: #ffd930;
+    padding: 0 .1rem;
+    border-radius: .1rem;
+    margin-right: .2rem;
+  }
+
   .cards ul li {
     overflow: hidden;
     line-height: 1.8rem;
+    padding-right: .3rem;
   }
 
   .bzp {
@@ -166,15 +196,23 @@
 
   /*蜂鸟*/
   .fn {
+    font-family: Microsoft Yahei;
+    font-size: .4rem;
     color: #fff;
     background-color: #3190e8;
     border: .025rem solid #3190e8;
+    padding: .04rem .08rem 0;
+    border-radius: .08rem;
   }
 
   /*准时达*/
   .zsd {
+    font-family: Microsoft Yahei;
+    font-size: .4rem;
     color: #3190e8;
-    border: .025rem solid #3190e8;
+    border: .05rem solid #3190e8;
+    padding: .04rem .08rem 0;
+    border-radius: .08rem;
   }
 
   .fnzsd {
@@ -200,18 +238,19 @@
     color: white;
   }
 
-  #nav > a:nth-child(1) {
+  #nav > span:nth-child(1) {
     color: white;
     float: left;
     margin-left: .5rem;
   }
 
-  #nav > span:nth-child(2) {
+  #nav > a:nth-child(2) {
     display: inline-block;
     width: 10rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: white;
   }
 
   #nav > a:nth-child(3) {
@@ -225,8 +264,39 @@
     background: white;
     padding-left: 1rem;
   }
-  .spzujian{
+
+  .spzujian {
     background: white;
     border-bottom: 1px solid #eeeeee;
+    display: flex;
+  }
+
+  .spzujian > div:nth-child(1) {
+    width: 20%;
+  }
+
+  .spzujian > div:nth-child(2) {
+    width: 80%;
+  }
+
+  .spzujian > div:nth-child(1) > img {
+    margin-top: .6rem;
+    margin-left: .3rem;
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .threeLis {
+    font-size: .5rem;
+    color: #666;
+    overflow: hidden;
+  }
+
+  .threeLis > span:nth-child(2) {
+    float: right;
+  }
+
+  .threeLis > span:nth-child(2) > span:nth-child(2) {
+    color: #3190e8;
   }
 </style>

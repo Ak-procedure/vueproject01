@@ -1,6 +1,5 @@
 <template>
   <div id="Citys">
-
     <div id="CityHeader">
     <span class="left_z">ele.me</span>
     <router-link :to="{path:'/mine'}" class="right_z">登录|注册</router-link>
@@ -72,7 +71,6 @@
   html,body {
     width: 100%;
     height: 100%;
-
   }
   /*热门城市*/
   .ul1 a{
@@ -199,4 +197,5 @@
     font: .55rem/1.45rem Helvetica Neue;
     background: white;
   }
+
 </style>

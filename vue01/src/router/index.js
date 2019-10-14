@@ -17,6 +17,7 @@ import Myhuiyuan_z from  '../components/zhang/myHuiyuan_z'
 import ServerCenter from '../components/ComJ/ServerCenter'
 import  DownLoad from  '../components/ComJ/ElmDownloading'
 import SuperDes from  '../components/ComJ/SuperDes'
+import SearchFood from '../components/ComsL/search'
 export default new Router({
   routes: [
     {path: '/', component: City},
@@ -32,7 +33,7 @@ export default new Router({
     {path:'/Myhuiyuan_z',component:Myhuiyuan_z},
     {path:'/ServerCenter',component:ServerCenter},
     {path:'/DownLoad',component:DownLoad},
-    {path:'/super',component:SuperDes}
-
+    {path:'/super',component:SuperDes},
+    {path:'/search',component:SearchFood}
   ]
 })

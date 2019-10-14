@@ -1,19 +1,42 @@
 <template>
     <div id="foodsClass">
       <div id="title">
-      <a href="###">返回</a>
+      <span @click="back">返回</span>
      <span>{{title.title}}</span>
+        <router-link :to="{path:'/mine'}">登录/注册</router-link>
       </div>
       <div id="filters">
         <van-dropdown-menu>
           <van-dropdown-item  :title="tit1" ref="item">
-            <van-sidebar v-model="activeKey" id="lis1">
-              <van-sidebar-item @click="fenl(v)" class="lists1" v-for="(v,i) in foods1" :key="i" :title="v.title" />
-            </van-sidebar>
-<div class="listRight">111111111</div>
+            <!--分类 左侧-->
+            <ul class="lists1">
+              <li class="flexs" @click="fenl(v)" v-for="(v,i) in foods1" :key="i">
+                <div>
+              <img :src="'https://fuss10.elemecdn.com/'+v.image_url+'.png'" alt=""></div>
+                <div class="text_r">
+                  <span>{{v.name}}</span>
+                  <span>
+                    <span>
+                    {{v.count}}</span>
+                    <span>></span></span>
+
+                </div>
+              </li>
+      </ul>
+<div class="listRight">
+  <!--右侧具体分类-->
+
+  <ul  class="flexs" >
+    <li v-for="(x,y) in showRight" :key="y">
+      <span>{{x.name}}</span><span>{{x.count}}</span>
+    </li>
+  </ul>
+
+</div>
           </van-dropdown-item>
           <van-dropdown-item  title="排序" ref="item">
-            <div>排序</div>
+            <div>
+            </div>
           </van-dropdown-item>
           <van-dropdown-item  title="筛选" ref="item">
           <div>筛选</div>
@@ -75,41 +98,36 @@
             switch1: false,
             switch2: false,
             activeKey:0,
-            tit1:'分类'
+            tit1:'分类',
+            //右侧具体分类
+            showRight:''
           }
       },
       created(){
           this.title=this.$route.query;
-        this.axios.get('https://elm.cangdu.org/v2/index_entry').then((res)=>{
-          this.foods1 = FunData(res.data)[0];
-          // console.log(res.data);
+        this.axios.get('https://elm.cangdu.org/shopping/v2/restaurant/category').then((res)=>{
+          console.log(res.data);
+          this.foods1 = res.data;
         }).then(this.axios.get('https://elm.cangdu.org/shopping/restaurants?latitude=31.22967&longitude=121.4762').then((res)=>{
           // console.log(res.data);
           this.food=res.data;
         }))
       },
       methods:{
+          back(){
+            this.$router.go(-1)
+          },
         fenl(v){
-          this.tit1=v.title;
+          this.showRight=v.sub_categories
           console.log(v);
+        },
+        checkok(x){
+          console.log(x);
+          this.tit1=x.name;
         }
       }
     }
-    let FunData = (e) => {
-      let proportion = 8; //按照比例切割
-      let num = 0;
-      let _data = [];
-      for (let i = 0; i < e.length; i++) {
-        if (i % proportion == 0 && i != 0) {
-          _data.push(e.slice(num, i));
-          num = i;
-        }
-        if ((i + 1) == e.length) {
-          _data.push(e.slice(num, (i + 1)));
-        }
-      }
-      return _data;
-    }
+
 </script>
 
 <style scoped>
@@ -126,11 +144,16 @@
   color:white;
   overflow: hidden;
 }
-  #title>a{
+  #title>span:nth-child(1){
     float: left;
     color:white;
     margin-left: .5rem;
   }
+#title>a:nth-child(3){
+  color: white;
+  margin-right: .5rem;
+  float: right;
+}
   #filters{
     margin-top: 2rem;
   }
@@ -190,18 +213,77 @@
   border-bottom: 1px solid #eeeeee;
 }
 
-  /*分类的列表  侧边栏*/
+  /*分类的列表  右侧*/
  .listRight{
-   width: 60%;
-   background: red;
+   width: 50%;
+   overflow: auto;
    float: left;
+   height: 27.6rem;
+   text-overflow: ellipsis;
+   white-space: nowrap;
  }
+ /*左侧*/
  .lists1{
-   line-height: 1rem;
+   width: 50%;
+   overflow: hidden;
+   float: left;
+   height: 27.6rem;
+   /*border-right: 1px solid red;*/
  }
-  #lis1{
-    width: 40%;
-    float: left;
-  }
+ .lists1>li div img{
+   width: 1.5rem;
+   height: 1.5rem;
+   margin-top: .5rem;
+   margin-left: .5rem;
+ }
+.lists1>li{
+  display: flex;
+  border-bottom: 1px solid white;
+  line-height: 2.5rem;
+  height: 3rem;
+}
+.lists1>li div{
+  overflow: hidden;
+}
+.lists1>li div span{
+  display: inline-block;
+  margin-top: .3rem;
+  font-size: .8rem;
+  color: #666;
+}
+.lists1>li div span:nth-child(2){
+  float: right;
+}
+.lists1>li div span:nth-child(2)>span:nth-child(1){
+  background-color: #ccc;
+  font-size: .4rem;
+  color: #fff;
+  padding: 0 0.3rem;
+  line-height: 1.2rem;
+  border: .025rem solid #ccc;
+  border-radius: .5rem;
+  margin-right: .5rem;
+  margin-top:.7rem;
+}
+.lists1>li div span:nth-child(2)>span:nth-child(2){
+  font-size: 1.2rem;
+  margin-right: .5rem;
+}
 
+.lists1>li>div:nth-child(1){
+  width: 20%;
+}
+.lists1>li>div:nth-child(2){
+  width: 80%;
+}
+/*右侧*/
+.flexs{
+ font-size: 0.8rem;
+}
+.flexs>li{
+line-height: 3.7rem;
+  border-bottom: .05rem solid #e2e2e2;
+  height: 3rem;
+
+}
 </style>

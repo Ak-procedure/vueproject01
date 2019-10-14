@@ -2,14 +2,14 @@
   <div id="J1L">
       <div class="title">
         <!--向左箭头-->
-        <router-link :to="{path:'/'}">返回</router-link>
+        <span @click="back">返回</span>
         <span>{{city1.name}}</span>
-        <router-link :to="{path:'/mine'}">登录/注册</router-link>
+        <router-link :to="{path:'/'}">切换城市</router-link>
       </div>
     <div class="one">
 
     <div class="div1">
-        <input placeholder="输入学校,商务楼,地址" type="text" id="input1">
+        <input placeholder="输入学校,商务楼,地址" type="search" id="input1">
       </div>
       <div class="div2">
         <input type="submit" class="btn1" @click="serchCity(city1.id)" value="提交">
@@ -38,10 +38,13 @@
       }
     },
     created() {
-      // console.log(this.$route.query);
+      this.$store.state.showOrNot=false;
       this.city1 = this.$route.query
     },
     methods: {
+      back(){
+        this.$router.go(-1)
+      },
       serchCity(id) {
         let input1V = document.getElementById('input1');
         // console.log(input1V.value);
@@ -64,7 +67,6 @@
     border-bottom: 1px solid #e4e4e4;
     padding-top: .4rem;
   }
-
 
   .one p {
     text-align: center;
@@ -92,7 +94,6 @@
     border-radius: .1rem;
     margin-bottom: .4rem;
     width: 100%;
-    /*height: 1.4rem;*/
     outline: none;
     border: none;
   }
@@ -110,8 +111,7 @@
     color: white;
   }
 
-
-  .title>a:nth-child(1){
+  .title>span:nth-child(1){
     color: white;
     float: left;
     margin-left: .5rem;
@@ -131,7 +131,6 @@
     float:right;
   }
   .lists{
-    /*font-size: 0;*/
     margin: 0 auto;
     padding-top: .65rem;
     border-bottom: 1px solid #e4e4e4;
@@ -141,7 +140,8 @@
    margin: 0 auto .35rem;
     width: 90%;
     font-size: .65rem;
-    color: #333;}
+    color: #333;
+ }
 
   .lists>a>p:nth-child(2){
     width: 90%;

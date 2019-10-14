@@ -1,6 +1,7 @@
 <template>
   <div id="Shangjia">
     <div id="header">
+      <span class="backS" @click="back">返回</span>
       <router-link :to="{}">
           <div class="cards">
             <img :src="'//elm.cangdu.org/img/'+getS.image_path">
@@ -16,7 +17,6 @@
     </div>
     <div>
       <van-tabs v-model="active">
-
         <van-tab title="商品">
           <div class="flexFood">
             <div id="left">
@@ -30,26 +30,39 @@
                 {{showF.description}}
                 <span>···</span>
               </div>
-              <van-card
-                class="right_c"
-                v-for="(v,i) in showF.foods"
-                :key="i"
-                :desc="v.description"
-                :thumb="'//elm.cangdu.org/img/'+v.image_path">
-                <div class="resBig" slot="title">{{v.name}}</div>
-                <div slot="tags" class="allP">
+              <div class="right_c" v-for="(v,i) in showF.foods" :key="i">
+                <div>
+                <img :src="'//elm.cangdu.org/img/'+v.image_path" alt="">
+                  <!--图片左上角新品标签-->
+                  <div class="newFood" v-if="v.attributes[0]?v.attributes[0].icon_name=='新'?true:false:false">
+                    <span>新品</span>
+                  </div>
+                </div>
+                <div>
+                <div class="resBig" >
+                <span>{{v.name}}</span>
+                  <!--标题右侧 招牌标签-->
+                  <span v-if="v.attributes.length!=0?v.attributes[0]!=null?v.attributes[0].icon_name=='招牌'?true:false:false:false">
+                    {{v.attributes[0].icon_name}}
+                  </span>
+                </div>
+                <div>{{v.description}}</div>
+                <div class="allP">
                   <p>{{v.tips}}</p>
+                  <span :class="v.activity?{orange:true}:{orange:false}" >{{v.activity?v.activity.image_text:''}}</span>
                   <p class="price">￥
                     <span>{{v.specfoods[0].price}}</span>
                     起</p>
                 </div>
-                <div slot="footer">
+              </div>
+                <div class="foot">
                   <span>+</span>
                 </div>
-              </van-card>
+              </div>
             </div>
           </div>
         </van-tab>
+        <!--评价  ---------------------->
         <van-tab title="评价">
           <div class="pingfen">
             <div class="pf_left">
@@ -62,6 +75,7 @@
                 <van-rate
                   v-model="starV.overall_score"
                   allow-half
+                  size="8"
                   void-icon="star"
                   void-color="#eee"
                 />
@@ -70,6 +84,7 @@
                   <van-rate
                     v-model="starV.food_score"
                     allow-half
+                    size="8"
                     void-icon="star"
                     void-color="#eee"
                   />
@@ -79,20 +94,52 @@
           </div>
           <!--词条-->
           <div class="pingluns">
-            <span href="###" v-for="(v,i) in pingjia" :key="i">{{v.name}}({{v.count}})</span>
+            <div class="evaluate_classify">
+              <div v-for="(v, i) in pingjia" :key="i">
+                <p @click="checkit(i)" :style="{background:index==i?'#3190e8':' #ebf5ff',color:index==i?'#ffffff':' #666'}" :class="(v.name)=='不满意'?{satisfaction:true}:{rest:true}">
+                  <span>{{v.name}}</span>
+                  <span>({{v.count}})</span>
+                </p>
+              </div>
+              <div style="clear: both;"></div>
+            </div>
           </div>
           <!--评论详情-->
           <div class="pinglunxq">
-            <div class="pl1" v-for="(v,i) in yhpj" :key="i">
-              <div class="pjleft"></div>
-              <ul class="pjright">
-                <li>
-                  <span>{{v.username}}</span>
-                  <span>{{v.rated_at}}</span>
-                </li>
-                <li>{{v.time_spent_desc}}</li>
-              </ul>
-            </div>
+<ul class="pllists">
+  <li v-for="(v,i) in yhpj" :key="i">
+    <div class="userHeaderImg">
+      <!--头像-->
+      <img :src="v.avatar==''?'//elm.cangdu.org/img/default.jpg':'https://fuss10.elemecdn.com/'+v.avatar+'.jpeg'" alt="">
+      <!--<span></span>-->
+    </div>
+    <div class="userpingl">
+      <p>
+        <span>{{v.username}}</span>
+        <span>{{v.rated_at}}</span>
+      </p>
+      <p>
+        <van-rate
+          v-model="starV.food_score"
+          allow-half
+          size="5"
+          gutter="0"
+          void-icon="star"
+          void-color="#eee"
+        />
+        <span>
+        {{v.time_spent_desc}}</span>
+      </p>
+      <p>
+        <img v-for="(n,m) in v.item_ratings" :src="chuli(n)" alt="">
+      </p>
+      <p>
+        <span v-for="(x,y) in v.item_ratings ">{{x.food_name}}</span>
+      </p>
+    </div>
+  </li>
+</ul>
+
           </div>
         </van-tab>
       </van-tabs>
@@ -105,6 +152,7 @@
     name: "Shangjia",
     data() {
       return {
+        shows:true,
         shangpin: '',
         //获取的商品
         getS: '',
@@ -117,11 +165,13 @@
         //用户评价
         yhpj: '',
         //星星
-        starV:5
+        starV:5,
+        index:0
       }
     },
     created() {
-      console.log(this.$route.query);
+      this.$store.state.showOrNot=false;
+      // console.log(this.$route.query);
       this.getS = this.$route.query;
       //获取评分  星星
       this.axios.get('https://elm.cangdu.org/ugc/v2/restaurants/3269/ratings/scores').then((res)=>{
@@ -146,14 +196,36 @@
         .then(() => {
           this.axios.get('https://elm.cangdu.org/ugc/v2/restaurants/1/ratings?offset=0&limit=10').then((res) => {
             this.yhpj = res.data;
-            // console.log(res.data);
+            console.log(res.data);
           })
         })
     },
     methods: {
+      sss(){
+        console.log(1);
+      },
+      checkit(index){
+        console.log(index);
+        this.index=index;
+      },
+      back(){
+        this.$router.go(-1)
+      },
       showfoods(e) {
-        // console.log(e);
+        console.log(e);
         this.showF = e
+      },
+      chuli(x) {
+        // console.log(x);
+        let v=x.image_hash
+        let news_0= v.charAt(0);
+        let news_1= v.charAt(1);
+        let news_2= v.charAt(2);
+        // console.log(news_0,news_1,news_2);
+        news_0=news_0+'/'
+        let news_3=news_1+news_2+'/'
+        // console.log('https://fuss10.elemecdn.com'+news_0+news_3+v.slice(3)+'.jpeg');
+        return 'https://fuss10.elemecdn.com/'+news_0+news_3+v.slice(3)+'.jpeg';
       }
     }
   }
@@ -164,68 +236,126 @@
   #Shangjia {
     width: 100%;
     height: 100%;
+    /*overflow: auto;*/
   }
-
   .titBig {
     font-size: 1.5rem;
     font-weight: bold;
   }
-
   #header {
     background-color: rgba(119, 103, 137, .43);
   }
-
   .flr {
     float: right;
     margin-right: .5rem;
   }
-
   .clear {
     overflow: hidden;
   }
-
   .flexFood {
     display: flex;
     width: 100%;
     height: 100%;
     overflow: hidden;
   }
-
   #left {
     width: 20%;
     height: 34.87rem;
     overflow: auto;
   }
-
   #right {
     overflow: auto;
     width: 80%;
     height: 34.87rem;
   }
-
   .price {
     font-size: .7rem;
     color: #f60;
     font-weight: 700;
   }
-
   .price > span {
     font-size: 1rem;
   }
-
   .allP p {
     margin-top: .5rem;
   }
-
   .right_c {
     overflow: hidden;
+    display: flex;
+    flex-flow:row wrap;
   }
-
-  .resBig {
+  .right_c>div:nth-child(1){
+    background: white;
+    width: 20%;
+    position: relative;
+  }
+  .newFood{
+    position: absolute;
+    left: -1.5rem;
+    top: -1.5rem;
+    width: 3rem;
+    height: 3rem;
+    background-color: #4cd964;
+    transform: rotateZ(-45deg);
+    text-align: center;
+  }
+  .newFood>span{
+    position: absolute;
+    bottom: .05rem;
+    left: 0;
+    right: 0;
+    font-size: .3rem;
+    color: white;
+  }
+  .right_c>div:nth-child(2){
+    background: white;
+    padding-left: .5rem;
+    padding-top: .5rem;
+    width: 80%;
+    box-sizing: border-box;
+  }
+  .right_c>div:nth-child(3){
+   line-height: 2rem;
+    width: 100%;
+    background: white;
+   border-bottom: 1px solid #e2e2e2;
+    padding-bottom: .3rem;
+  }
+  .right_c>div:nth-child(3) span{
+    display: block;
+    width: 2rem;
+    line-height: 1.9rem;
+    background: cornflowerblue;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    float: right;
+    margin-right: 1rem;
+  }
+  .right_c>div:nth-child(1)>img{
+    margin-top: .5rem;
+    width: 3.4rem;
+    height: 3.4rem;
+    margin-left: .3rem;
+  }
+  .resBig{
+    overflow: hidden;
+  }
+  .resBig span:nth-child(1) {
+    float: left;
     font-size: 1rem;
     font-weight: bold;
   }
-
+  .resBig span:nth-child(2){
+    border: .05rem solid rgb(240, 115, 115);
+    line-height: 1rem;
+    padding: 0 0.2rem;
+    border-radius: .5rem;
+    font-size: .8rem;
+    color: rgb(240, 115, 115);
+    margin-right: 2rem;
+    float: right;
+  }
   /*评分*/
   .pingfen {
     display: flex;
@@ -234,58 +364,46 @@
     margin-top: .05rem;
     background: white;
   }
-
   .pf_left {
     width: 40%;
     text-align: center;
   }
-
   .pf_left > p {
     margin: .5rem 0;
   }
-
   .pf_left > p:nth-child(1) {
     font-size: 2rem;
     color: #f60;
   }
-
   .pf_left > p:nth-child(2) {
     font-size: .65rem;
     color: #666;
     margin-bottom: .1rem;
   }
-
   .pf_left > p:nth-child(3) {
     font-size: .4rem;
     color: #999;
   }
-
   .pf_right {
     width: 60%;
     padding-top: .8rem;
-    /*background: greenyellow;*/
   }
-
   .pf_right > div {
     margin: .5rem 0;
   }
-
   .pf_right > div > span:nth-child(1) {
     color: #666;
     margin-right: .5rem;
   }
-
   /*评论*/
   .pingluns {
     margin-top: .5rem;
     background-color: #fff;
     padding: .5rem;
-    /*height: 8rem;*/
     overflow: hidden;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
   }
-
   .pingluns > span {
-    /*font-size: .6rem;*/
     float: left;
     color: #6d7885;
     padding: .3rem;
@@ -294,19 +412,10 @@
     border: 1px;
     margin: 0 .4rem .2rem 0;
   }
-
   /*评论详情*/
   .pinglunxq {
     background: white;
     width: 100%;
-    /*height: 8rem;*/
-  }
-
-  .pl1 {
-    width: 90%;
-    margin: 0 auto;
-    height: 5rem;
-    border-top: .5px solid rgba(0, 0, 0, 0.1);
   }
 
   .cards > ul > li {
@@ -314,7 +423,6 @@
     color: #fff;
     font-size: .5rem;
   }
-
   .cards > ul > li:nth-child(1) {
     margin-top: .5rem;
     font-size: 1.2rem;
@@ -334,5 +442,101 @@
   float: left;
   margin: 1rem .5rem 0rem ;
 }
-  /*购物车组件*/
+  /*评价标签*/
+  .evaluate_states, .rest, .satisfaction {
+    padding: 0.2rem;
+    margin: 0.15rem;
+    border-radius: 0.15rem;
+    float: left;
+  }
+  .evaluate_states {
+    color: #fff;
+    background: #3190e8;
+  }
+  .rest {
+    color: #6d7885;
+    background: #ebf5ff;
+  }
+  .satisfaction {
+    color: #aaa;
+    background: #f5f5f5;
+  }
+  .orange{
+    font-size: .5rem;
+    color: rgb(241, 136, 79);
+    border: 1px solid rgb(240, 115, 115);
+    border-radius: .3rem;
+  }
+ /*评论详情*/
+  /*评论循环创建的列表*/
+  .pllists>li{
+    display: flex;
+  }
+  /*评论  用户头像*/
+  .userHeaderImg{
+    width: 15%;
+  }
+
+ .userHeaderImg>img{
+  width: 2.5rem;
+   height: 2.5rem;
+   border-radius: 50%;
+   margin-top: .4rem;
+   margin-left: .8rem;
+ }
+ .pllists>li{
+   border-bottom: 1px solid rgba(0,0,0,0.03);
+ }
+  /*评论  右侧*/
+  .userpingl{
+    box-sizing: border-box;
+    padding-left: .8rem;
+    width: 85%;
+  }
+
+  .userpingl>p:nth-child(1){
+    overflow: hidden;
+  }
+  .userpingl>p:nth-child(1)>span:nth-child(1){
+    float: left;
+    color: #666;
+    margin-bottom: .2rem;
+  }
+  .userpingl>p:nth-child(1)>span:nth-child(2){
+    float: right;
+    margin-right: .5rem;
+    font-size: .4rem;
+    color: #999;
+  }
+
+  .userpingl>p:nth-child(2)>span{
+    font-size: .55rem;
+    color: #666;
+    margin-left: .15rem;
+  }
+.userpingl>p:nth-child(3) img{
+  width: 3rem;
+  height: 3rem;
+  margin: 0 .4rem;
+}
+.userpingl>p:nth-child(4) span{
+  display: inline-block;
+  width: 2.2rem;
+  border: 1px solid #999;
+  font-size: .55rem;
+  color: #999;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  border-radius: .3rem;
+  padding: 0 .2rem;
+  margin:  0 .2rem;
+}
+  .backS{
+    position: absolute;
+    left: .3rem;
+    top: .1rem ;
+    color: white;
+    font-size: 1.2rem;
+  }
 </style>
