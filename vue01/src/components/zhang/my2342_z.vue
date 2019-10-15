@@ -86,6 +86,10 @@
       back() {
         this.$router.go(-1)
       }
+    },
+   created(){
+      this.$store.state.shopcar=false;
+     this.$store.state.showOrNot = true;
     }
   }
 </script>

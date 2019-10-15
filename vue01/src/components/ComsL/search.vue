@@ -1,7 +1,7 @@
 <template>
   <div id="search">
     <div class="myde_z">
-      <router-link :to="{}" class="pointLeft_z"><</router-link>
+     <span @click="back" class="pointLeft_z">返回</span>
       <span class="text_z">搜索</span>
     </div>
     <form class="search_form">
@@ -10,8 +10,8 @@
     </form>
     <!--展示-->
    <ul >
-     <li>商家</li>
-     <li>
+     <li v-if="show">商家</li>
+     <li v-if="show">
        <router-link class="flexs" :to="{path:'/shangjia',query:v}" v-for="(v,i) in arr1" :key="i">
        <div class="imgDiv">
        <img :src="'//elm.cangdu.org/img/'+v.image_path" alt=""></div>
@@ -21,6 +21,16 @@
          <p>{{v.float_minimum_order_amount}}起送/距离{{v.distance}}</p>
        </div>
        </router-link>
+     </li>
+     <li v-if="!show">搜索历史</li>
+     <li  v-if="!show" v-for="(v,i) in hInputV" :key="i">
+       <router-link :to="{}" class="showI">
+         <span @click="sousuo(i)">{{v.inputtext}}</span>
+         <span @click="removeHistory(i)">x</span>
+       </router-link>
+     </li>
+     <li v-if="!show" class="clears">
+       <input @click="qingkong" type="submit" value="清空搜索历史">
      </li>
    </ul>
   </div>
@@ -32,16 +42,68 @@
     data(){
       return{
        arr1:'',
+      //  输入历史数组
+        hInputV:[],
+        show:false
       }
+    },
+    created(){
+      this.$store.state.shopcar=false;
+      this.$store.state.showOrNot = true;
+      var storage=window.localStorage;
+      let getL= JSON.parse(storage.getItem('data2'));
+      this.hInputV=getL;
     },
     methods:{
       searchByKey(){
         let input1V = document.getElementById('input1');
-        // console.log(input1V.value);
+       let val= input1V.value.replace(/\s*/g,"");
+        if(val==''){
+          return
+        }
         this.axios.get('https://elm.cangdu.org/v4/restaurants?geohash=31.22967,121.4762&keyword='+input1V.value).then((res) => {
-          this.arr1=res.data;
           console.log(res.data);
-        })
+          this.arr1=res.data;
+        });
+        this.addLocal(input1V.value);
+        input1V.value='';
+        this.show=true;
+      },
+      addLocal(e){
+        var storage=window.localStorage;
+        var data2={
+          inputtext:e
+        };
+        var arr=[];
+        let getL= JSON.parse(storage.getItem('data2'));
+        for (let v in getL) {
+          arr.push(getL[v]);
+        }
+        arr.push(data2);
+        var d=JSON.stringify(arr);
+        storage.setItem("data2",d);
+      },
+      qingkong(){
+        this.hInputV=[];
+        var storage=window.localStorage;
+        storage.setItem("data2",null);
+      },
+      removeHistory(i){
+        this.hInputV.splice(i,1);
+        var storage=window.localStorage;
+        var d= JSON.stringify(this.hInputV);
+        storage.setItem("data2",d);
+      },
+      back(){
+        this.$router.go(-1);
+      },
+      sousuo(e){
+        this.show=true;
+        this.axios.get('https://elm.cangdu.org/v4/restaurants?geohash=31.22967,121.4762&keyword='+this.hInputV[e].inputtext).then((res) => {
+          console.log(res.data);
+          this.arr1=res.data;
+        });
+        // console.log(this.hInputV[e].inputtext);
       }
     }
   }
@@ -55,16 +117,17 @@
   }
   .myde_z {
     width: 100%;
-    height: 8%;
+    height: 3rem;
+    line-height: 3rem;
     background: cornflowerblue;
     color: white;
-    font-size: 20px;
+    font-size: 1.2rem;
   }
   .pointLeft_z {
     color: white;
-    margin-left: 3%;
-    margin-top: 0;
-    font-size: 35px;
+    margin-left: .3rem;
+    /*margin-top: .3rem;*/
+    font-size: 1.2rem;
   }
   .text_z {
     margin-left: 30%;
@@ -134,6 +197,32 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+  /*展示历史记录*/
+  .showI{
+    display: flex;
+    border-bottom: 0.03rem solid #e2e2e2;
+    line-height:3rem ;
+    background: white;
+    color: #333;
+
+  }
+  .showI>span:nth-child(1){
+    box-sizing: border-box;
+    padding-left: 1rem;
+    width: 90%;
+  }
+  .showI>span:nth-child(2){
+    width: 10%;
+    text-align: center;
+  }
+  .clears>input{
+    width: 100%;
+    border: none;
+    background: white;
+    font-size: 1.2rem;
+    color: #3190e8;
+    font-weight: 600;
   }
 </style>
 

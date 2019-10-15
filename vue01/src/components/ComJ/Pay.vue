@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="pay">
-        <router-link :to="{path:'/home'}">
+        <router-link :to="{}">
           <i class="iconfont icon-fanhuijiantou"></i>
         </router-link>
         <p>确认支付</p>
@@ -37,7 +37,6 @@
           </van-cell>
         </van-cell-group>
       </van-radio-group>
-
 <button class="btn" @click="show=true">确认支付</button>
       <div class="tan" v-if="show">
         <img src="./弹框-警告.png" alt="">
@@ -47,7 +46,6 @@
       </div>
     </div>
 </template>
-
 <script>
     export default {
         name: "Pay",
@@ -60,8 +58,8 @@
       },
       methods:{
           btn1(){
-//            跳到订单列表
-this.$router.push({})
+           // 跳到订单列表
+          this.$router.push({})
           }
       }
     }

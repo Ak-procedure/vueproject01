@@ -17,11 +17,21 @@
     </div>
     <div>
       <ul>
-        <li v-for="(v,i) in msgs" :key="i" class="lists">
-          <router-link :to="{path:'foods',query:v}">
+        <li v-if="!shows" class="lef">搜索历史</li>
+        <li v-if="shows" v-for="(v,i) in msgs" :key="i" class="lists">
+          <router-link @click.native="addLocal(v)" :to="{path:'/foods',query:v}">
             <p>{{v.name}}</p>
             <p>{{v.address}}</p>
           </router-link>
+        </li>
+        <li v-if="!shows"  v-for="(v,i) in historySearcharr" :key="i" class="lists">
+          <router-link @click.native="addLocal(v)" :to="{path:'/foods',query:v}">
+            <p>{{v.name}}</p>
+            <p>{{v.address}}</p>
+          </router-link>
+        </li>
+        <li v-if="!shows" class="clearli" @click="removeh()">
+          <span>清空所有</span>
         </li>
       </ul>
     </div>
@@ -34,24 +44,49 @@
     data() {
       return {
         city1: '',
-        msgs: ''
+        msgs: '',
+        historySearcharr:[],
+        shows:false
       }
     },
     created() {
       this.$store.state.showOrNot=false;
-      this.city1 = this.$route.query
+      this.city1 = this.$route.query;
+      var storage=window.localStorage;
+      this.historySearcharr=JSON.parse(storage.data);
+      // console.log(JSON.parse(storage.data));
     },
     methods: {
       back(){
         this.$router.go(-1)
       },
       serchCity(id) {
+        this.shows=true;
         let input1V = document.getElementById('input1');
         // console.log(input1V.value);
         this.axios.get('https://elm.cangdu.org/v1/pois?city_id=' + id + '&keyword=' + input1V.value + '&type=search').then((res) => {
-          // console.log(res.data);
           this.msgs = res.data
         })
+      },
+      addLocal(e){
+        var storage=window.localStorage;
+        var data={
+          name:e.name,
+          address:e.address
+        };
+        var arr=[];
+        let getL= JSON.parse(storage.getItem('data'));
+        for (let v in getL) {
+          arr.push(getL[v]);
+        }
+        arr.push(data);
+        var d=JSON.stringify(arr);
+        storage.setItem("data",d);
+      },
+      removeh(){
+        var storage=window.localStorage;
+        this.historySearcharr=null;
+        storage.setItem("data",null);
       }
     }
   }
@@ -149,4 +184,14 @@
     font-size: .45rem;
     color: #999;
   }
+  .clearli{
+    text-align: center;
+    background: white;
+    line-height: 3rem;
+    color: #666;
+    font-size: 1.2rem;
+  }
+.lef{
+  margin-left: 0.6rem;
+}
 </style>

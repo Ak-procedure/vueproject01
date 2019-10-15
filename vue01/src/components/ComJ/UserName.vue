@@ -12,8 +12,6 @@
     <router-link :to="{path:'/mima_z'}">
       <button>确认修改</button>
     </router-link>
-
-
   </div>
 </template>
 

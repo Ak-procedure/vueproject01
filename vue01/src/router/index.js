@@ -25,7 +25,14 @@ import ProAddress from '../components/ComJ/ProAddress'
 import Add from '../components/ComJ/NewAddress'
 import SearchAddress from '../components/ComJ/SearchAddress'
 import NoLogin from '../components/ComsL/NoLogin'
-export default new Router({
+import Lishihongbao from  '../components/zhang/LiShihongbao'
+import UserName from '../components/ComJ/UserName'
+import Reset from  '../components/ComJ/ResetPassword'
+import Duihuanhongbao from  '../components/ComsL/DuiHuanHB'
+import Qrdingdan from  '../components/zhang/QRdingdan_z'
+import Tianjiad from '../components/ComsL/Tianjiadizhi'
+import Xinzengdz from  '../components/ComsL/xinzengdz'
+ export default new Router({
   routes: [
     {path: '/', component: City},
     {path: '/jump', component: j1},
@@ -48,6 +55,13 @@ export default new Router({
     {path:'/ProAddress',component:ProAddress},
     {path:'/Add',component:Add},
     {path:'/searchAddress',component:SearchAddress},
-    {path:'/noLogin',component:NoLogin}
+    {path:'/noLogin',component:NoLogin},
+    {path:'/lishihongbao',component:Lishihongbao},
+    {path:'/UserName',component:UserName},
+    {path:'/reset',component:Reset},
+    {path:'/duihuanhongbao',component:Duihuanhongbao},
+    {path:'/qrdingdan',component:Qrdingdan},
+    {path:'/tianjiad',component:Tianjiad},
+    {path:'/xinzengdz',component:Xinzengdz}
   ]
 })

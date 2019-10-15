@@ -49,15 +49,10 @@
 
 <style scoped>
   @import "//at.alicdn.com/t/font_1455672_tvaaydyxb5.css";
-  /*.reF{*/
-  /*height: 100%;*/
-  /*width: 100% ;*/
-  /*background-color: #f0f0f0;*/
-  /*}*/
+
   .res{
     line-height: 3rem;
     background-color: #3190e8;
-    /*font-size: 1rem;*/
     text-align: center;
   }
   p{
@@ -69,18 +64,16 @@
     text-decoration: none;
     position: absolute;
     left: 0.3rem;
-    /*top: 1rem;*/
     color: white;
     font-size: 1.3rem;
   }
   input{
-    /*box-sizing: border-box;*/
     padding: 1rem 0 1rem 0;
     margin: 0.05rem 0;
-    /*margin-left: 1rem;*/
     width: 100%;
     border: none;
     height: 1.8rem;
+    padding-left: 1rem;
   }
   .btn{
     width: 20rem;
@@ -95,8 +88,9 @@
   }
   .reI{
     position: relative;
+    width: 100%;
+    overflow: hidden;
     background-color: white;
-    padding-left: 1rem;
   }
   .img{
     position: absolute;
@@ -104,7 +98,9 @@
     right: 5rem;
   }
   .see{
-    /*margin-left: 18rem;*/
     margin-top: 1rem;
+  }
+  .reI input{
+    border-bottom: 0.05rem solid #e2e2e2;
   }
 </style>

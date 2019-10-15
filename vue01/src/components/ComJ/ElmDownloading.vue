@@ -1,7 +1,7 @@
 <template>
     <div class="DP">
       <div class="Download">
-        <router-link :to="{}"><</router-link>
+        <span @click="back"><</span>
         <p class="dw">下载</p>
       </div>
       <div class="imgs">
@@ -28,7 +28,11 @@
           return{
             show:false
           }
-
+      },
+      methods:{
+          back(){
+            this.$router.go(-1)
+          }
       }
     }
 </script>
@@ -46,7 +50,7 @@
   text-align: center;
   background-color: #3190e8;
 }
-  a{
+  .Download>span{
     position: absolute;
     left: 0.2rem;
     top:0.6rem;

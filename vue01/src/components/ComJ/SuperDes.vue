@@ -18,7 +18,7 @@
         }
       },
       created(){
-          this.title = this.$route.query.des1
+          this.title = this.$route.query.des1;
           this.msg=this.$route.query.msg1
       },
       methods:{

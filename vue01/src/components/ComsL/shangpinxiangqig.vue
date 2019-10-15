@@ -46,6 +46,8 @@
       }
     },
     created(){
+      this.$store.state.shopcar=true;
+      this.$store.state.showOrNot=false;
       this.getObj=this.$route.query;
       console.log(this.$route.query);
     },

@@ -41,10 +41,15 @@
       },
       created(){
           let name='';
+        console.log( this.$route.query.res);
           for (let v in this.$route.query.res) {
           name+= this.$route.query.res[v];
         }
-        this.getres=name;
+         if (name.indexOf('object')==-1){
+           this.getres=name;
+         }else {
+           return;
+         }
         this.id = this.$route.query.inp;
       }
     }

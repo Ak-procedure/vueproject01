@@ -3,16 +3,16 @@
     <div id="header">
       <span class="backS" @click="back">返回</span>
       <router-link :to="{}">
-          <div class="cards">
-            <img :src="'//elm.cangdu.org/img/'+getS.image_path">
-            <ul>
-              <li><h3>{{getS.name}}</h3></li>
-              <li class="clear">商家配送/分钟送达/{{getS.piecewise_agent_fee.tips}}<span class="flr">></span></li>
-              <li>公告:{{getS.promotion_info}}</li>
-              <li>{{getS.activities[0]?getS.activities[0].description:null}}
+        <div class="cards">
+          <img :src="'//elm.cangdu.org/img/'+getS.image_path">
+          <ul>
+            <li><h3>{{getS.name}}</h3></li>
+            <li class="clear">商家配送/分钟送达/{{getS.piecewise_agent_fee.tips}}<span class="flr">></span></li>
+            <li>公告:{{getS.promotion_info}}</li>
+            <li>{{getS.activities[0]?getS.activities[0].description:null}}
               <span class="flr">1个活动></span></li>
-            </ul>
-          </div>
+          </ul>
+        </div>
       </router-link>
     </div>
     <div>
@@ -31,34 +31,37 @@
                 <span>···</span>
               </div>
               <div v-for="(v,i) in showF.foods" :key="i">
-                <router-link :to="{path:'/shangpinXQ',query:v}"  class="right_c">
-                <div>
-                <img :src="'//elm.cangdu.org/img/'+v.image_path" alt="">
-                  <!--图片左上角新品标签-->
-                  <div class="newFood" v-if="v.attributes[0]?v.attributes[0].icon_name=='新'?true:false:false">
-                    <span>新品</span>
+                <router-link :to="{path:'/shangpinXQ',query:v}" class="right_c">
+                  <div>
+                    <img :src="'//elm.cangdu.org/img/'+v.image_path" alt="">
+                    <!--图片左上角新品标签-->
+                    <div class="newFood" v-if="v.attributes[0]?v.attributes[0].icon_name=='新'?true:false:false">
+                      <span>新品</span>
+                    </div>
                   </div>
-                </div>
-                <div>
-                <div class="resBig" >
-                <span>{{v.name}}</span>
-                  <!--标题右侧 招牌标签-->
-                  <span v-if="v.attributes.length!=0?v.attributes[0]!=null?v.attributes[0].icon_name=='招牌'?true:false:false:false">
+                  <div>
+                    <div class="resBig">
+                      <span>{{v.name}}</span>
+                      <!--标题右侧 招牌标签-->
+                      <span
+                        v-if="v.attributes.length!=0?v.attributes[0]!=null?v.attributes[0].icon_name=='招牌'?true:false:false:false">
                     {{v.attributes[0].icon_name}}
                   </span>
-                </div>
-                <div>{{v.description}}</div>
-                <div class="allP">
-                  <p>{{v.tips}}</p>
-                  <span :class="v.activity?{orange:true}:{orange:false}" >{{v.activity?v.activity.image_text:''}}</span>
-                  <p class="price">￥
-                    <span>{{v.specfoods[0].price}}</span>
-                    起</p>
-                </div>
-              </div>
+                    </div>
+                    <div>{{v.description}}</div>
+                    <div class="allP">
+                      <p>{{v.tips}}</p>
+                      <span
+                        :class="v.activity?{orange:true}:{orange:false}">{{v.activity?v.activity.image_text:''}}</span>
+                      <p class="price">￥
+                        <span>{{v.specfoods[0].price}}</span>
+                        起</p>
+                    </div>
+                  </div>
                 </router-link>
                 <div class="foot">
-                  <span>+</span>
+                  <span v-if="v.specifications.length>=1?true:false" @click="chooseGG">规格</span>
+                  <span v-else>+</span>
                 </div>
               </div>
             </div>
@@ -98,7 +101,9 @@
           <div class="pingluns">
             <div class="evaluate_classify">
               <div v-for="(v, i) in pingjia" :key="i">
-                <p @click="checkit(i)" :style="{background:index==i?'#3190e8':' #ebf5ff',color:index==i?'#ffffff':' #666'}" :class="(v.name)=='不满意'?{satisfaction:true}:{rest:true}">
+                <p @click="checkit(i)"
+                   :style="{background:index==i?'#3190e8':' #ebf5ff',color:index==i?'#ffffff':' #666'}"
+                   :class="(v.name)=='不满意'?{satisfaction:true}:{rest:true}">
                   <span>{{v.name}}</span>
                   <span>({{v.count}})</span>
                 </p>
@@ -108,43 +113,62 @@
           </div>
           <!--评论详情-->
           <div class="pinglunxq">
-<ul class="pllists">
-  <li v-for="(v,i) in yhpj" :key="i">
-    <div class="userHeaderImg">
-      <!--头像-->
-      <img :src="v.avatar==''?'//elm.cangdu.org/img/default.jpg':'https://fuss10.elemecdn.com/'+v.avatar+'.jpeg'" alt="">
-      <!--<span></span>-->
-    </div>
-    <div class="userpingl">
-      <p>
-        <span>{{v.username}}</span>
-        <span>{{v.rated_at}}</span>
-      </p>
-      <p>
-        <van-rate
-          v-model="starV.food_score"
-          allow-half
-          size="5"
-          gutter="0"
-          void-icon="star"
-          void-color="#eee"
-        />
-        <span>
+            <ul class="pllists">
+              <li v-for="(v,i) in yhpj" :key="i">
+                <div class="userHeaderImg">
+                  <!--头像-->
+                  <img
+                    :src="v.avatar==''?'//elm.cangdu.org/img/default.jpg':'https://fuss10.elemecdn.com/'+v.avatar+'.jpeg'"
+                    alt="">
+                  <!--<span></span>-->
+                </div>
+                <div class="userpingl">
+                  <p>
+                    <span>{{v.username}}</span>
+                    <span>{{v.rated_at}}</span>
+                  </p>
+                  <p>
+                    <van-rate
+                      v-model="starV.food_score"
+                      allow-half
+                      size="5"
+                      gutter="0"
+                      void-icon="star"
+                      void-color="#eee"
+                    />
+                    <span>
         {{v.time_spent_desc}}</span>
-      </p>
-      <p>
-        <img v-for="(n,m) in v.item_ratings" :src="chuli(n)" alt="">
-      </p>
-      <p>
-        <span v-for="(x,y) in v.item_ratings ">{{x.food_name}}</span>
-      </p>
-    </div>
-  </li>
-</ul>
-
+                  </p>
+                  <p>
+                    <img v-for="(n,m) in v.item_ratings" :src="chuli(n)" alt="">
+                  </p>
+                  <p>
+                    <span v-for="(x,y) in v.item_ratings ">{{x.food_name}}</span>
+                  </p>
+                </div>
+              </li>
+            </ul>
           </div>
         </van-tab>
       </van-tabs>
+    </div>
+
+    <div id="GG" v-if="GGshow">
+      <div>
+        <ul class="lists2">
+          <li><span>werwer</span>
+            <span @click="guanxi()">x</span>
+          </li>
+          <li>规格</li>
+          <li>
+            <span class="choseGg" >默认</span>
+            <span  class="choseGg" >190*120</span>
+          </li>
+          <li>￥<span>20</span>
+            <span>加入购物车</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -154,7 +178,8 @@
     name: "Shangjia",
     data() {
       return {
-        shows:true,
+        ggg:false,
+        shows: true,
         shangpin: '',
         //获取的商品
         getS: '',
@@ -167,25 +192,32 @@
         //用户评价
         yhpj: '',
         //星星
-        starV:5,
-        index:0
+        starV: 5,
+        index: 0,
+        GGshow: false
       }
     },
     created() {
-      this.$store.state.showOrNot=false;
+      this.$store.state.shopcar = true;
+      this.$store.state.showOrNot = false;
       // console.log(this.$route.query);
       this.getS = this.$route.query;
       //获取评分  星星
-      this.axios.get('https://elm.cangdu.org/ugc/v2/restaurants/3269/ratings/scores').then((res)=>{
-        this.starV=res.data;
+      this.axios.get('https://elm.cangdu.org/ugc/v2/restaurants/3269/ratings/scores').then((res) => {
+        this.starV = res.data;
         // console.log(res.data);
       });
       //通过id搜索商家
       this.axios.get("https://elm.cangdu.org/shopping/v2/menu?restaurant_id=" + this.$route.query.id).then((res) => {
         // console.log(res.data);
         this.shangpin = res.data;
-      }).then(()=>{
-        this.showfoods(this.shangpin[0])
+      }).then(() => {
+        if (this.shangpin[0]) {
+          this.showfoods(this.shangpin[0])
+        }
+        else {
+          return
+        }
       })
       //获取评价
         .then(() => {
@@ -198,19 +230,16 @@
         .then(() => {
           this.axios.get('https://elm.cangdu.org/ugc/v2/restaurants/1/ratings?offset=0&limit=10').then((res) => {
             this.yhpj = res.data;
-            console.log(res.data);
+            // console.log(res.data);
           })
         })
     },
     methods: {
-      sss(){
-        console.log(1);
+      checkit(index) {
+        // console.log(index);
+        this.index = index;
       },
-      checkit(index){
-        console.log(index);
-        this.index=index;
-      },
-      back(){
+      back() {
         this.$router.go(-1)
       },
       showfoods(e) {
@@ -219,15 +248,23 @@
       },
       chuli(x) {
         // console.log(x);
-        let v=x.image_hash
-        let news_0= v.charAt(0);
-        let news_1= v.charAt(1);
-        let news_2= v.charAt(2);
+        let v = x.image_hash
+        let news_0 = v.charAt(0);
+        let news_1 = v.charAt(1);
+        let news_2 = v.charAt(2);
         // console.log(news_0,news_1,news_2);
-        news_0=news_0+'/'
-        let news_3=news_1+news_2+'/'
+        news_0 = news_0 + '/'
+        let news_3 = news_1 + news_2 + '/'
         // console.log('https://fuss10.elemecdn.com'+news_0+news_3+v.slice(3)+'.jpeg');
-        return 'https://fuss10.elemecdn.com/'+news_0+news_3+v.slice(3)+'.jpeg';
+        return 'https://fuss10.elemecdn.com/' + news_0 + news_3 + v.slice(3) + '.jpeg';
+      },
+      chooseGG() {
+        this.GGshow=true;
+      },
+      guanxi(){
+      //  关闭
+        this.GGshow=false;
+
       }
     }
   }
@@ -240,59 +277,72 @@
     height: 100%;
     /*overflow: auto;*/
   }
+
   .titBig {
     font-size: 1.5rem;
     font-weight: bold;
   }
+
   #header {
     background-color: rgba(119, 103, 137, .43);
   }
+
   .flr {
     float: right;
     margin-right: .5rem;
   }
+
   .clear {
     overflow: hidden;
   }
+
   .flexFood {
     display: flex;
     width: 100%;
     height: 100%;
     overflow: hidden;
   }
+
   #left {
     width: 20%;
     height: 34.87rem;
     overflow: auto;
   }
+
   #right {
     overflow: auto;
     width: 80%;
     height: 34.87rem;
   }
+
   .price {
     font-size: .7rem;
     color: #f60;
     font-weight: 700;
   }
+
   .price > span {
     font-size: 1rem;
   }
+
   .allP p {
     margin-top: .5rem;
   }
+
   .right_c {
     overflow: hidden;
     display: flex;
-    flex-flow:row wrap;
+    flex-flow: row wrap;
     color: #666;
   }
-  .right_c>div:nth-child(1){
+
+  .right_c > div:nth-child(1) {
     background: white;
     width: 20%;
     position: relative;
   }
-  .newFood{
+
+  .newFood {
     position: absolute;
     left: -1.5rem;
     top: -1.5rem;
@@ -302,7 +352,8 @@
     transform: rotateZ(-45deg);
     text-align: center;
   }
-  .newFood>span{
+
+  .newFood > span {
     position: absolute;
     bottom: .05rem;
     left: 0;
@@ -310,7 +361,8 @@
     font-size: .3rem;
     color: white;
   }
-  .right_c>div:nth-child(2){
+
+  .right_c > div:nth-child(2) {
     box-sizing: border-box;
     background: white;
     padding-left: .5rem;
@@ -319,14 +371,16 @@
     position: relative;
     margin-left: -.05rem;
   }
-  .right_c>div:nth-child(3){
-   line-height: 2rem;
+
+  .right_c > div:nth-child(3) {
+    line-height: 2rem;
     width: 100%;
     background: white;
-   border-bottom: 1px solid #e2e2e2;
+    border-bottom: 1px solid #e2e2e2;
     padding-bottom: .3rem;
   }
-  .foot span{
+
+  .foot span {
     display: block;
     width: 2rem;
     line-height: 2rem;
@@ -337,26 +391,31 @@
     float: right;
     margin-right: 1rem;
   }
-  .foot{
-  overflow: hidden;
+
+  .foot {
+    overflow: hidden;
     background: white;
     margin-bottom: .5rem;
   }
-  .right_c>div:nth-child(1)>img{
+
+  .right_c > div:nth-child(1) > img {
     margin-top: .5rem;
     width: 3.4rem;
     height: 3.4rem;
     margin-left: .3rem;
   }
-  .resBig{
+
+  .resBig {
     overflow: hidden;
   }
+
   .resBig span:nth-child(1) {
     float: left;
     font-size: 1rem;
     font-weight: bold;
   }
-  .resBig span:nth-child(2){
+
+  .resBig span:nth-child(2) {
     border: .05rem solid rgb(240, 115, 115);
     line-height: 1rem;
     padding: 0 0.2rem;
@@ -366,6 +425,7 @@
     margin-right: 2rem;
     float: right;
   }
+
   /*评分*/
   .pingfen {
     display: flex;
@@ -374,45 +434,55 @@
     margin-top: .05rem;
     background: white;
   }
+
   .pf_left {
     width: 40%;
     text-align: center;
   }
+
   .pf_left > p {
     margin: .5rem 0;
   }
+
   .pf_left > p:nth-child(1) {
     font-size: 2rem;
     color: #f60;
   }
+
   .pf_left > p:nth-child(2) {
     font-size: .65rem;
     color: #666;
     margin-bottom: .1rem;
   }
+
   .pf_left > p:nth-child(3) {
     font-size: .4rem;
     color: #999;
   }
+
   .pf_right {
     width: 60%;
     padding-top: .8rem;
   }
+
   .pf_right > div {
     margin: .5rem 0;
   }
+
   .pf_right > div > span:nth-child(1) {
     color: #666;
     margin-right: .5rem;
   }
+
   /*评论*/
   .pingluns {
     margin-top: .5rem;
     background-color: #fff;
     padding: .5rem;
     overflow: hidden;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   }
+
   .pingluns > span {
     float: left;
     color: #6d7885;
@@ -422,6 +492,7 @@
     border: 1px;
     margin: 0 .4rem .2rem 0;
   }
+
   /*评论详情*/
   .pinglunxq {
     background: white;
@@ -433,25 +504,31 @@
     color: #fff;
     font-size: .5rem;
   }
+
   .cards > ul > li:nth-child(1) {
     margin-top: .5rem;
     font-size: 1.2rem;
   }
+
   .cards > ul > li:nth-child(3) {
     margin-bottom: 1.3rem;
   }
+
   .cards > ul > li:nth-child(4) {
     margin-left: 1rem;
   }
-  .cards{
+
+  .cards {
     overflow: hidden;
   }
-.cards img{
-  width: 6rem;
-  height: 6rem;
-  float: left;
-  margin: 1rem .5rem 0rem ;
-}
+
+  .cards img {
+    width: 6rem;
+    height: 6rem;
+    float: left;
+    margin: 1rem .5rem 0rem;
+  }
+
   /*评价标签*/
   .evaluate_states, .rest, .satisfaction {
     padding: 0.2rem;
@@ -459,95 +536,178 @@
     border-radius: 0.15rem;
     float: left;
   }
+
   .evaluate_states {
     color: #fff;
     background: #3190e8;
   }
+
   .rest {
     color: #6d7885;
     background: #ebf5ff;
   }
+
   .satisfaction {
     color: #aaa;
     background: #f5f5f5;
   }
-  .orange{
+
+  .orange {
     font-size: .5rem;
     color: rgb(241, 136, 79);
     border: 1px solid rgb(240, 115, 115);
     border-radius: .3rem;
   }
- /*评论详情*/
+
+  /*评论详情*/
   /*评论循环创建的列表*/
-  .pllists>li{
+  .pllists > li {
     display: flex;
   }
+
   /*评论  用户头像*/
-  .userHeaderImg{
+  .userHeaderImg {
     width: 15%;
   }
 
- .userHeaderImg>img{
-  width: 2.5rem;
-   height: 2.5rem;
-   border-radius: 50%;
-   margin-top: .4rem;
-   margin-left: .8rem;
- }
- .pllists>li{
-   border-bottom: 1px solid rgba(0,0,0,0.03);
- }
+  .userHeaderImg > img {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    margin-top: .4rem;
+    margin-left: .8rem;
+  }
+
+  .pllists > li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+  }
+
   /*评论  右侧*/
-  .userpingl{
+  .userpingl {
     box-sizing: border-box;
     padding-left: .8rem;
     width: 85%;
   }
 
-  .userpingl>p:nth-child(1){
+  .userpingl > p:nth-child(1) {
     overflow: hidden;
   }
-  .userpingl>p:nth-child(1)>span:nth-child(1){
+
+  .userpingl > p:nth-child(1) > span:nth-child(1) {
     float: left;
     color: #666;
     margin-bottom: .2rem;
   }
-  .userpingl>p:nth-child(1)>span:nth-child(2){
+
+  .userpingl > p:nth-child(1) > span:nth-child(2) {
     float: right;
     margin-right: .5rem;
     font-size: .4rem;
     color: #999;
   }
 
-  .userpingl>p:nth-child(2)>span{
+  .userpingl > p:nth-child(2) > span {
     font-size: .55rem;
     color: #666;
     margin-left: .15rem;
   }
-.userpingl>p:nth-child(3) img{
-  width: 3rem;
-  height: 3rem;
-  margin: 0 .4rem;
-}
-.userpingl>p:nth-child(4) span{
-  display: inline-block;
-  width: 2.2rem;
-  border: 1px solid #999;
-  font-size: .55rem;
-  color: #999;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  border-radius: .3rem;
-  padding: 0 .2rem;
-  margin:  0 .2rem;
-}
-  .backS{
+
+  .userpingl > p:nth-child(3) img {
+    width: 3rem;
+    height: 3rem;
+    margin: 0 .4rem;
+  }
+
+  .userpingl > p:nth-child(4) span {
+    display: inline-block;
+    width: 2.2rem;
+    border: 1px solid #999;
+    font-size: .55rem;
+    color: #999;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    border-radius: .3rem;
+    padding: 0 .2rem;
+    margin: 0 .2rem;
+  }
+
+  .backS {
     position: absolute;
     left: .3rem;
-    top: .1rem ;
+    top: .1rem;
     color: white;
     font-size: 1.2rem;
   }
 
+  #GG {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  #GG > div {
+    width: 18rem;
+    /*height: 12rem;*/
+    background: white;
+    border-radius: 0.5rem;
+    margin: 13rem auto 0;
+    z-index: 999;
+  }
+
+  .lists2 > li {
+    line-height: 2.5rem;
+    padding-left: 0.4rem;
+  }
+
+  .lists2 > li:nth-child(1) {
+    text-align: center;
+    position: relative;
+  }
+
+  .lists2 > li:nth-child(1) > span:nth-child(2) {
+    position: absolute;
+    right: 1rem;
+  }
+
+  .lists2 > li:nth-child(4) {
+    margin-top: 2rem;
+    background: #f9f9f9;
+    color: #ff6000;
+    overflow: hidden;
+    line-height: 3rem;
+    border-radius: 0.4rem;
+  }
+
+  .lists2 > li:nth-child(4) > span:nth-child(1) {
+    font-size: 1.3rem;
+  }
+
+  .lists2 > li:nth-child(4) > span:nth-child(2) {
+    line-height: 2rem;
+    display: block;
+    float: right;
+    color: white;
+    background: #3199e8;
+    padding: 0 0.5rem;
+    margin-top: 0.6rem;
+    margin-right: 0.7rem;
+    border-radius: 0.4rem;
+  }
+
+  .choseGg {
+    border: 0.05rem solid #999999;
+    padding: 0.5rem 0.8rem;
+    border-radius: 0.3rem;
+  }
+
+  .changeToBlue {
+    border: 0.05rem solid #3199e8;
+    color: #3199e8;
+  }
 </style>

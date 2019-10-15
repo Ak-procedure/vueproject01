@@ -96,6 +96,7 @@
       }
     },
     created() {
+      this.$store.state.shopcar=false;
       this.$store.state.showOrNot = true;
       this.getCityRes = this.$route.query;
       this.axios.get('https://elm.cangdu.org/v2/index_entry').then((res) => {

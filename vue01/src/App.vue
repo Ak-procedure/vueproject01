@@ -2,18 +2,20 @@
   <div id="app">
     <router-view></router-view>
     <BottomCom v-if="this.$store.state.showOrNot"></BottomCom>
+    <ShopCar v-if="this.$store.state.shopcar"></ShopCar>
   </div>
 </template>
 
 <script>
 
   import BottomCom from "./components/ComsL/BottomCom";
+  import ShopCar from "./components/ComsL/ShopCar";
   export default {
     name: 'App',
-    components: {BottomCom},
+    components: {ShopCar, BottomCom},
     created(){
       this.$store.state.showOrNot=false;
-      // console.log(this.$store.state.showOrNot);
+      this.$store.state.shopcar=false;
     }
   }
 </script>
