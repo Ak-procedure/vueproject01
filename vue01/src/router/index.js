@@ -21,6 +21,10 @@ import SearchFood from '../components/ComsL/search'
 import Duihuanhuiyuan from  '../components/zhang/duihuanhuiyuan'
 import TuiJian from '../components/zhang/TuiJianYouJiang'
 import ShangpinXQ from  '../components/ComsL/shangpinxiangqig'
+import ProAddress from '../components/ComJ/ProAddress'
+import Add from '../components/ComJ/NewAddress'
+import SearchAddress from '../components/ComJ/SearchAddress'
+import NoLogin from '../components/ComsL/NoLogin'
 export default new Router({
   routes: [
     {path: '/', component: City},
@@ -40,6 +44,10 @@ export default new Router({
     {path:'/search',component:SearchFood},
     {path:'/duihuanhuiyuan',component:Duihuanhuiyuan},
     {path:'/tuijian',component:TuiJian},
-    {path:'/shangpinXQ',component:ShangpinXQ}
+    {path:'/shangpinXQ',component:ShangpinXQ},
+    {path:'/ProAddress',component:ProAddress},
+    {path:'/Add',component:Add},
+    {path:'/searchAddress',component:SearchAddress},
+    {path:'/noLogin',component:NoLogin}
   ]
 })

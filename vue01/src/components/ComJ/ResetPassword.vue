@@ -1,4 +1,3 @@
-
 <template>
   <div class="reF">
     <div class="res">
@@ -12,14 +11,10 @@
       <input type="text" placeholder="旧密码"><br>
       <input type="text" placeholder="新密码"><br>
       <input type="text" placeholder="确认密码"><br>
-
       <input type="text" placeholder="验证码">
       <div class="img">
         <img :src="arr" alt=""><br>
       </div>
-
-
-
     </div>
     <div class="see">
       <span>看不清</span>

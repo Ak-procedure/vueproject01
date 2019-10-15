@@ -1,7 +1,7 @@
 <template>
     <div class="Sv">
       <div class="super">
-        <router-link :to="{path:'/test'}"><</router-link>
+       <span @click="back"> 返回</span>
         <p>{{title}}</p>
       </div>
       <div class="msg">{{msg}}</div>
@@ -20,6 +20,11 @@
       created(){
           this.title = this.$route.query.des1
           this.msg=this.$route.query.msg1
+      },
+      methods:{
+        back() {
+          this.$router.go(-1)
+        }
       }
     }
 </script>
@@ -39,7 +44,7 @@
     top: 0;
     left: 0;
   }
-  .super>a{
+  .super>span{
     font-size: 1.5rem;
     position: absolute;
     left: 0.3rem;

@@ -2,7 +2,7 @@
   <div class="SV">
     <div class="server">
       <!--返回上一页-->
-      <router-link :to="{}"><</router-link>
+    <span @click="back">返回</span>
       <p>服务中心</p>
     </div>
     <div>
@@ -54,6 +54,9 @@
             }
           }
         })
+      },
+      back() {
+        this.$router.go(-1)
       }
     },
     created() {
@@ -79,7 +82,7 @@
     position: relative;
   }
 
-  .server > a {
+  .server > span {
     font-size: 1.5rem;
     position: absolute;
     left: 0.3rem;

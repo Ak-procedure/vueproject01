@@ -11,8 +11,9 @@
       <div class="empty"></div>
     </div>
     <div class="Piont">
-      <a href="###" class="rightPiont_z">
-        <span>></span></a>
+      <router-link :to="{path:'/jump'}" class="rightPiont_z">
+        <span>郑州</span>
+        <span>></span></router-link>
     </div>
     <div id="HotCity">
       <div>热门城市</div>
@@ -138,16 +139,24 @@
   margin-bottom: .5rem;
   background: white;
 }
-  .rightPiont_z {
-    display: block;
-    width: 100%;
-    line-height: 2.5rem;
-    overflow: hidden;
-    border-bottom: 1px solid #e4e4e4;
-    margin-bottom: 0.5rem;
+.rightPiont_z{
+  display: block;
+  width: 100%;
+  line-height: 2.5rem;
+  overflow: hidden;
+  border-bottom: 1px solid #e4e4e4;
 }
-  .rightPiont_z span{
+  .rightPiont_z>span:nth-child(2) {
+    overflow: hidden;
     float: right;
+    margin-right: .4rem;
+    color: #999;
+}
+  .rightPiont_z span:nth-child(1){
+    float: left;
+    color: #3190e8;
+    margin-left: .5rem;
+    font-size: 1.2rem;
   }
   .empty{
     clear: both;

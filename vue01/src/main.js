@@ -17,7 +17,8 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state:{
-    showOrNot:false
+    showOrNot:false,
+    address:[]
   }
 });
 

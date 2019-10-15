@@ -110,10 +110,7 @@
     color: #333;
     margin-bottom: .3rem;
   }
-  .details_div_y{
-    /*display: flex;*/
-    /*align-items: center;*/
-  }
+
   .details_span_y{
     font-size: .95rem;
     color: #f60;

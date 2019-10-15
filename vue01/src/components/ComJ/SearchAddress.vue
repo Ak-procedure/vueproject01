@@ -1,9 +1,9 @@
 <template>
     <div>
       <div class="address">
-        <router-link :to="{path:'/Add'}">
+        <span @click="back">
           <i class="iconfont icon-fanhuijiantou"></i>
-        </router-link>
+        </span>
         <p>搜索地址</p>
       </div>
       <div class="search">
@@ -17,7 +17,7 @@
       <ul v-if="id">
 
        <li v-for="(v,i) in arr" :key="i">
-         <router-link :to="{path:'/Add',query:{inp:v.name}}">
+         <router-link :to="{path:'/Add',query:{inp:v.name,res:ress}}">
          <p>{{v.name}}</p>
          <p>{{v.address}}</p>
          </router-link>
@@ -40,7 +40,8 @@
           return{
             inputv:'',
             arr:[],
-            id:false
+            id:false,
+            ress:''
           }
       },
       methods:{
@@ -49,14 +50,19 @@
               return
             }
             this.axios.get("https://elm.cangdu.org/v1/pois?city_id=1&keyword="+this.inputv+"&type=search").then((res)=>{
-              console.log(res);
+              // console.log(res);
   this.arr = res.data;
-
        this.id = true
             })
-          }
+          },
+        back(){
+            this.$router.go(-1);
+        }
       },
-
+  created(){
+    // console.log(this.$route.query);
+    this.ress=this.$route.query
+  }
     }
 </script>
 
@@ -69,7 +75,7 @@
     position: relative;
     color: white;
   }
-  .address>a{
+  .address>span:nth-child(1){
     position: absolute;
     left: 0.3rem;
     color: white;

@@ -4,7 +4,7 @@
       <!--向左箭头-->
       <span @click="back">返回</span>
       <router-link :to="{path:'/jump'}">{{getCityRes.address}}</router-link>
-      <router-link :to="{path:'/mine'}">登录/注册</router-link>
+      <router-link :to="{path:Math.random()>0.5?'/noLogin': '/mine'}">登录/注册</router-link>
     </div>
     <div id="tit">
       <van-swipe class="lbt" indicator-color="white">
@@ -35,9 +35,6 @@
     <div id="food">
       <div class="fjsj">附近商家</div>
       <router-link v-for="(v,k) in food" :to="{path:'/shangjia',query:v}" :key="k">
-        <!--<van-card-->
-        <!--:thumb="'//elm.cangdu.org/img/'+v.image_path"-->
-        <!--class="spzujian" >-->
         <div class="spzujian">
           <div>
             <img :src="'//elm.cangdu.org/img/'+v.image_path" alt=""></div>
@@ -81,10 +78,8 @@
             </ul>
           </div>
         </div>
-        <!--</van-card>-->
       </router-link>
     </div>
-
   </div>
 </template>
 
@@ -103,14 +98,12 @@
     created() {
       this.$store.state.showOrNot = true;
       this.getCityRes = this.$route.query;
-      // console.log(this.$route.query);
       this.axios.get('https://elm.cangdu.org/v2/index_entry').then((res) => {
-        // console.log(FunData(res.data));
         this.foods1 = FunData(res.data)[0];
         this.foods2 = FunData(res.data)[1];
       }).then(() => {
         this.axios.get('https://elm.cangdu.org/shopping/restaurants?latitude=31.22967&longitude=121.4762').then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.food = res.data
         })
       })

@@ -1,35 +1,25 @@
 <template>
     <div>
 <div class="address">
-  <router-link :to="{path:'/address'}">
+  <span @click="back">
     <i class="iconfont icon-fanhuijiantou"></i>
-  </router-link>
+  </span>
   <p>新增地址</p>
 </div>
      <div class="is">
-       <input type="text" placeholder="请填写你的姓名" v-model="names"><br>
-       <router-link :to="{path:'/search'}">
+       <input type="text" placeholder="请填写你的姓名" v-model="getres"><br>
+       <router-link :to="{path:'/searchAddress',query:getres}">
          <input type="text" placeholder="小区/写字楼/学校等" v-model="id"><br>
        </router-link>
-
   <input type="text" placeholder="请填写详细送餐地址" v-model="detail"><br>
   <input type="text" placeholder="请填写能够联系到您的手机号" v-model="TL"><br>
-
-
-       <!--<router-link :to="{path:'/address',query:{}}">-->
-       <!--</router-link>-->
-
        <input type="text" placeholder="备用联系电话">
      </div>
-
         <button @click="btn">新增地址</button>
-
-
     </div>
 </template>
 
 <script>
-  let a = "";
     export default {
         name: "NewAddress",
       data(){
@@ -37,22 +27,25 @@
             id:'',
             detail:"",
             TL:"",
-            names:''
+            getres:''
           }
       },
       methods:{
-btn(){
-this.$router.push({path:'/address',query:{id:this.detail,contact:this.TL}});
-
-}
+     btn(){
+    this.$router.push({path:'/ProAddress'});
+    this.$store.state.address.push({id:this.detail,contact:this.TL})
+     },
+        back(){
+            this.$router.go(-1)
+        }
       },
       created(){
-     this.id = this.$route.query.inp
-       this.names = a
-
-      },
-      destroyed(){
-          a = this.names
+          let name='';
+          for (let v in this.$route.query.res) {
+          name+= this.$route.query.res[v];
+        }
+        this.getres=name;
+        this.id = this.$route.query.inp;
       }
     }
 </script>
@@ -66,7 +59,7 @@ this.$router.push({path:'/address',query:{id:this.detail,contact:this.TL}});
     position: relative;
     color: white;
   }
-  .address>a{
+  .address>span:nth-child(1){
     position: absolute;
     left: 0.3rem;
     color: white;

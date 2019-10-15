@@ -1,15 +1,15 @@
 <template>
     <div>
       <div class="address">
-        <router-link :to="{path:'/mima_z'}">
+        <span @click="back">
           <i class="iconfont icon-fanhuijiantou"></i>
-        </router-link>
+        </span>
         <span>编辑地址</span>
         <span>编辑</span>
       </div>
-<div class="hid">
-  <p>{{p1}}</p>
-  <p>{{p2}}</p>
+<div class="hid" v-for="(v,i) in this.$store.state.address">
+  <p>{{v.id}}</p>
+  <p>{{v.contact}}</p>
 </div>
       <router-link :to="{path:'/Add'}" class="newa">
         <span>新增地址</span>
@@ -25,8 +25,7 @@
         name: "ProAddress",
       data(){
           return{
-            p1:"",
-            p2:""
+
           }
       },
       methods: {
@@ -35,19 +34,13 @@
         },
         onClickRight() {
           Toast('按钮');
+        },
+        back(){
+          this.$router.go(-1)
         }
       },
       created(){
-          this.p1=this.$route.query.id;
-          this.p2=this.$route.query.contact
-        // console.log(this.$route.query.contact)
-         this.p1 =b
-        c = this.p2
-
-      },
-      destroyed(){
-this.p1 = b;
-this.p2 =c;
+        console.log(this.$store.state.address);
       }
     }
 </script>
@@ -62,7 +55,7 @@ this.p2 =c;
   position: relative;
   color: white;
 }
-  .address>a{
+  .address>span:nth-child(1){
     position: absolute;
     left: 0.3rem;
     color: white;
@@ -83,6 +76,9 @@ this.p2 =c;
     color: black;
     position: relative;
     margin-top: 1rem;
+    border-top: 0.05rem solid #e2e2e2;
+    border-bottom: 0.05rem solid #e2e2e2;
+
   }
   .newa>i{
     position: absolute;
@@ -90,8 +86,12 @@ this.p2 =c;
   }
   .hid{
     /*padding: 0.5rem;*/
-    background-color: orange;
-    margin-bottom: 0.2rem;
+    background-color: #fff8c3;
+    margin-top: .6rem;
+    margin-bottom: -.3rem;
+    border-top: 0.05rem solid #e2e2e2;
+    border-bottom: 0.05rem solid #e2e2e2;
+    padding-left: .5rem;
   }
   p{
     margin: 0.2rem;

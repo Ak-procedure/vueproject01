@@ -1,13 +1,12 @@
 <template>
-    <div id="yanzhengma">
-
-<div>1111{{<hr>}}</div>
+    <div>
+      <h1>账号未登录</h1>
     </div>
 </template>
 
 <script>
     export default {
-        name: "yanzhengma"
+        name: "NoLogin"
     }
 </script>
 

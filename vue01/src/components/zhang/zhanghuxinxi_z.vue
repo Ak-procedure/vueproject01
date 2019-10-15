@@ -23,12 +23,16 @@
       </router-link>
       <router-link :to="{}" href="#/profile/info/address" class="info-router">
         <div class="headportrait headportraitwo headportraithree">
-          <h2>收货地址</h2>
+
           <div class="headportrait-div">
-            <router-link :to="{}"class="pointR_z">></router-link>
+            <router-link :to="{path:'/ProAddress'}"class="pointR_z"> <span>收货地址</span>
+             <span>></span>
+            </router-link>
           </div>
         </div>
       </router-link>
+
+
       <div  class="bind-phone">账号绑定</div>
       <div  class="info-router">
         <div  class="headportrait headportraitwo headportraithree">
@@ -129,12 +133,16 @@
     width: 100%;
     height: 4.526rem;
   }
-  .headportrait h2 {
+  .headportrait span {
     font-size: .88rem;
     color: #333;
     font-weight: 500;
-    display: flex;
-    align-items: center;
+  }
+  .headportrait{
+    overflow: hidden;
+  }
+  .headportrait>span:nth-child(2){
+    float: right;
   }
   .headportrait-div-top {
     width: 2.92rem;
