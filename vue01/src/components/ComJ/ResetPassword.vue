@@ -12,13 +12,14 @@
       <input type="text" placeholder="新密码"><br>
       <input type="text" placeholder="确认密码"><br>
       <input type="text" placeholder="验证码">
-      <div class="img">
-        <img :src="arr" alt=""><br>
-      </div>
+
     </div>
-    <div class="see">
-      <span>看不清</span>
-      <span style="color: blue" @click="yan">换一张</span>
+    <div class="imgs">
+      <img :src="arr" alt="">
+      <div class="see">
+        <div>看不清</div>
+        <div style="color: blue" @click="yan">换一张</div>
+      </div>
     </div>
     <button class="btn">确认修改</button>
   </div>
@@ -49,18 +50,20 @@
 
 <style scoped>
   @import "//at.alicdn.com/t/font_1455672_tvaaydyxb5.css";
-
+  .reF{
+    overflow: hidden;
+  }
   .res{
     line-height: 3rem;
     background-color: #3190e8;
     text-align: center;
   }
-  p{
+  .res>p{
     line-height: 3rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: white;
   }
-  a{
+  .res>a{
     text-decoration: none;
     position: absolute;
     left: 0.3rem;
@@ -68,19 +71,20 @@
     font-size: 1.3rem;
   }
   input{
-    padding: 1rem 0 1rem 0;
-    margin: 0.05rem 0;
+    /*box-sizing: border-box;*/
+    padding: 1rem 0 1rem 1rem ;
+    margin-top: 0.1rem;
+    background-color: white;
     width: 100%;
     border: none;
     height: 1.8rem;
-    padding-left: 1rem;
   }
   .btn{
     width: 20rem;
     color: white;
     font-size: 1.4rem;
     background-color: #4cd964;
-    margin-left: 2rem;
+    margin-left: 1.5rem;
     margin-top: 1rem;
     padding: 0.5rem;
     border: none;
@@ -88,19 +92,20 @@
   }
   .reI{
     position: relative;
-    width: 100%;
-    overflow: hidden;
-    background-color: white;
   }
-  .img{
+  .imgs{
     position: absolute;
-    top:17rem;
-    right: 5rem;
+    /*background-color: red;*/
+    overflow: hidden;
+    width: 9rem;
+    top:19.5rem;
+    right: 2rem;
   }
   .see{
-    margin-top: 1rem;
+    float: left;
   }
-  .reI input{
-    border-bottom: 0.05rem solid #e2e2e2;
+  .imgs>img{
+    float: left;
+    margin-right: 0.5rem;
   }
 </style>
