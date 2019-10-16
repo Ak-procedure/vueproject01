@@ -2,7 +2,7 @@
   <div>
     <div class="user">
       <!---->
-      <router-link :to="{}">
+      <router-link @click.native="back" :to="{}">
         <i class="iconfont icon-fanhuijiantou"></i>
       </router-link>
       <span>修改用户名</span>
@@ -18,7 +18,12 @@
 <script>
 
   export default {
-    name: "UserName"
+    name: "UserName",
+    methods:{
+      back(){
+        this.$router.go(-1)
+      }
+    }
   }
 </script>
 

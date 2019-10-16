@@ -8,6 +8,7 @@ import j1 from '../components/ComsL/J1L'
 import Foods from '../components/ComsL/Foods'
 import Shangjia from '../components/ComsL/Shangjia'
 import FoodClass from  '../components/ComsL/foodsClass'
+//登录后 个人中心
 import Mine from '../components/zhang/my2342_z'
 import zhanghuxinxi from '../components/zhang/zhanghuxinxi_z'
 import MyYe from '../components/zhang/myYue_z'
@@ -15,7 +16,7 @@ import MyYouhui_z from  '../components/zhang/myYouhui_z'
 import MyJifen_z from  '../components/zhang/myJifen_z'
 import Myhuiyuan_z from  '../components/zhang/myHuiyuan_z'
 import ServerCenter from '../components/ComJ/ServerCenter'
-import  DownLoad from  '../components/ComJ/ElmDownloading'
+import DownLoad from  '../components/ComJ/ElmDownloading'
 import SuperDes from  '../components/ComJ/SuperDes'
 import SearchFood from '../components/ComsL/search'
 import Duihuanhuiyuan from  '../components/zhang/duihuanhuiyuan'
@@ -24,7 +25,8 @@ import ShangpinXQ from  '../components/ComsL/shangpinxiangqig'
 import ProAddress from '../components/ComJ/ProAddress'
 import Add from '../components/ComJ/NewAddress'
 import SearchAddress from '../components/ComJ/SearchAddress'
-import NoLogin from '../components/ComsL/NoLogin'
+//未登录
+import NoLogin from '../components/ComJ/LoginPassword'
 import Lishihongbao from  '../components/zhang/LiShihongbao'
 import UserName from '../components/ComJ/UserName'
 import Reset from  '../components/ComJ/ResetPassword'
@@ -32,6 +34,8 @@ import Duihuanhongbao from  '../components/ComsL/DuiHuanHB'
 import Qrdingdan from  '../components/zhang/QRdingdan_z'
 import Tianjiad from '../components/ComsL/Tianjiadizhi'
 import Xinzengdz from  '../components/ComsL/xinzengdz'
+import ShopDetail from '../components/ComJ/ShopDetail'
+import Foodsafe from  '../components/ComJ/FoodSafe'
  export default new Router({
   routes: [
     {path: '/', component: City},
@@ -40,7 +44,7 @@ import Xinzengdz from  '../components/ComsL/xinzengdz'
     {path:'/shangjia',component:Shangjia},
     {path:'/fclass',component:FoodClass},
     {path:'/mine',component:Mine},
-    {path:'/mima_z',component:zhanghuxinxi},
+    {path:'/zhanghuxinxi',component:zhanghuxinxi},
     {path:'/myYue_z',component:MyYe},
     {path:'/myYouhui_z',component:MyYouhui_z},
     {path:'/myJifen_z',component:MyJifen_z},
@@ -62,6 +66,8 @@ import Xinzengdz from  '../components/ComsL/xinzengdz'
     {path:'/duihuanhongbao',component:Duihuanhongbao},
     {path:'/qrdingdan',component:Qrdingdan},
     {path:'/tianjiad',component:Tianjiad},
-    {path:'/xinzengdz',component:Xinzengdz}
+    {path:'/xinzengdz',component:Xinzengdz},
+    {path:'/ShopDetail',component:ShopDetail},
+    {path:'/foodsafe',component:Foodsafe}
   ]
 })

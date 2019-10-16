@@ -2,7 +2,7 @@
   <div id="Shangjia">
     <div id="header">
       <span class="backS" @click="back">返回</span>
-      <router-link :to="{}">
+      <router-link :to="{path:'/ShopDetail',query: getS}">
         <div class="cards">
           <img :src="'//elm.cangdu.org/img/'+getS.image_path">
           <ul>
@@ -60,8 +60,10 @@
                   </div>
                 </router-link>
                 <div class="foot">
-                  <span v-if="v.specifications.length>=1?true:false" @click="chooseGG">规格</span>
-                  <span v-else>+</span>
+                  <span v-if="v.specifications.length>=1?true:false" class="xgg" @click="chooseGG(v,i)">选规格</span>
+                  <div v-else class="countjia">
+                    <van-stepper @change="addShopCar2(v,i)" min="0" v-model="countarr[i]"/>
+                  </div>
                 </div>
               </div>
             </div>
@@ -157,15 +159,15 @@
       <div>
         <ul class="lists2">
           <li><span>werwer</span>
-            <span @click="guanxi()">x</span>
+            <span @click="guanbi()">x</span>
           </li>
           <li>规格</li>
           <li>
-            <span class="choseGg" >默认</span>
-            <span  class="choseGg" >190*120</span>
+            <span :class="{changeToBlue:ind==m?true:false}" class="choseGg" @click="guigeqr(n,m)"
+                  v-for="(n,m) in ggarr[0].values" :key="m">{{n}}</span>
           </li>
           <li>￥<span>20</span>
-            <span>加入购物车</span>
+            <span @click="addShopCar">加入购物车</span>
           </li>
         </ul>
       </div>
@@ -178,7 +180,11 @@
     name: "Shangjia",
     data() {
       return {
-        ggg:false,
+        //购物车商品数量
+        countarr: [],
+        //规格
+        ggarr: '',
+        ggg: false,
         shows: true,
         shangpin: '',
         //获取的商品
@@ -194,7 +200,12 @@
         //星星
         starV: 5,
         index: 0,
-        GGshow: false
+        GGshow: false,
+        //暂存规格
+        temporary: '',
+        ind: 0,
+        chooseTrue: false,
+        clickindex: 0
       }
     },
     created() {
@@ -243,7 +254,7 @@
         this.$router.go(-1)
       },
       showfoods(e) {
-        console.log(e);
+        // console.log(e);
         this.showF = e
       },
       chuli(x) {
@@ -252,18 +263,68 @@
         let news_0 = v.charAt(0);
         let news_1 = v.charAt(1);
         let news_2 = v.charAt(2);
-        // console.log(news_0,news_1,news_2);
-        news_0 = news_0 + '/'
-        let news_3 = news_1 + news_2 + '/'
-        // console.log('https://fuss10.elemecdn.com'+news_0+news_3+v.slice(3)+'.jpeg');
+        news_0 = news_0 + '/';
+        let news_3 = news_1 + news_2 + '/';
         return 'https://fuss10.elemecdn.com/' + news_0 + news_3 + v.slice(3) + '.jpeg';
       },
-      chooseGG() {
-        this.GGshow=true;
+      chooseGG(v, i) {
+        this.GGshow = true;
+        this.ggarr = v.specifications;
       },
-      guanxi(){
-      //  关闭
-        this.GGshow=false;
+      guanbi() {
+        //  关闭
+        this.GGshow = false;
+
+      },
+      guigeqr(n, m) {
+        this.ind = m;
+        this.temporary = n;
+      },
+      addShopCar() {
+        console.log(this.temporary);
+      },
+      addShopCar2(v, i) {
+        this.clickindex = i;
+        // console.log(this.countarr[i]);
+        let foodobj = v.specfoods[0];
+        console.log(foodobj);
+        let objs={
+          restaurant_id: this.getS.id,
+          geohash: this.getS.location[1] + ',' + this.getS.location[0],
+          entities:
+            [{
+              attrs: [],
+              extra: {},
+              id: foodobj.food_id,
+              name: foodobj.name,
+              packing_fee: foodobj.packing_fee,
+              price: foodobj.price,
+              quantity: this.countarr[i],
+              sku_id: foodobj.sku_id,
+              specs: '默认',
+              stock: foodobj.stock,
+            }]
+        }
+        console.log(objs);
+        this.axios.post('https://elm.cangdu.org/v1/carts/checkout', {
+          restaurant_id: this.getS.id,
+          geohash: this.getS.location[1] + ',' + this.getS.location[0],
+          entities:
+            [{
+            attrs: [],
+            extra: {},
+            id: foodobj.food_id,
+            name: foodobj.name,
+            packing_fee: foodobj.packing_fee,
+            price: foodobj.price,
+            quantity: this.countarr[i],
+            sku_id: foodobj.sku_id,
+            specs: '默认',
+            stock: foodobj.stock,
+          }]
+        }).then((res) => {
+          console.log(res.data);
+        })
 
       }
     }
@@ -275,7 +336,6 @@
   #Shangjia {
     width: 100%;
     height: 100%;
-    /*overflow: auto;*/
   }
 
   .titBig {
@@ -380,22 +440,21 @@
     padding-bottom: .3rem;
   }
 
-  .foot span {
-    display: block;
-    width: 2rem;
-    line-height: 2rem;
-    background: cornflowerblue;
-    border-radius: 50%;
-    color: white;
-    text-align: center;
-    float: right;
-    margin-right: 1rem;
-  }
-
   .foot {
     overflow: hidden;
     background: white;
     margin-bottom: .5rem;
+  }
+
+  .xgg {
+    float: right;
+    margin-right: 1rem;
+    font-size: 0.8rem;
+    color: white;
+    background-color: #3190e8;
+    border: 1px solid #3190e8;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.4rem;
   }
 
   .right_c > div:nth-child(1) > img {
@@ -709,5 +768,12 @@
   .changeToBlue {
     border: 0.05rem solid #3199e8;
     color: #3199e8;
+  }
+
+  /*购物车*/
+  .countjia {
+    float: right;
+    line-height: 2.2rem;
+    margin-right: 1rem;
   }
 </style>

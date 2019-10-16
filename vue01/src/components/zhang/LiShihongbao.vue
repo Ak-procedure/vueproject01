@@ -71,7 +71,7 @@
   }
   .myde_z {
     width: 100%;
-    height: 7%;
+    /*height: 7%;*/
     background: cornflowerblue;
     font-size: 1.2rem;
     font-weight: 700;

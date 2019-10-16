@@ -4,7 +4,7 @@
       <!--向左箭头-->
       <span @click="back">返回</span>
       <router-link :to="{path:'/jump'}">{{getCityRes.address}}</router-link>
-      <router-link :to="{path:Math.random()>0.5?'/noLogin': '/mine'}">登录/注册</router-link>
+      <router-link :to="{path:logino?'/mine':'/noLogin'}">登录/注册</router-link>
     </div>
     <div id="tit">
       <van-swipe class="lbt" indicator-color="white">
@@ -92,10 +92,21 @@
         foods2: '',
         food: '',
         //传递的地址信息
-        getCityRes: ''
+        getCityRes: '',
+        logino:''
       }
     },
     created() {
+
+      this.axios.get('https://elm.cangdu.org/v1/user').then((res)=> {
+        if (res.data.message) {
+          this.logino = false;
+          console.log(res.data.message);
+        } else {
+          this.logino = true
+        }
+      });
+      // this.login.loginOrNot()
       this.$store.state.shopcar=false;
       this.$store.state.showOrNot = true;
       this.getCityRes = this.$route.query;

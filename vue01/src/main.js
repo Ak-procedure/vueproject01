@@ -6,12 +6,14 @@ import router from './router'
 import VueAxios from 'vue-axios'
 import axios from 'axios'
 Vue.use(VueAxios, axios);
+axios.defaults.withCredentials = true;
 Vue.config.productionTip = false;
 import Vant from 'vant';
 import 'vant/lib/index.css';
 import '../src/assets/js/PeiShi_w'
 import myhttp from '../src/assets/axios/http';
-
+import login from '../src/assets/js/Login'
+Vue.prototype.login=login;
 Vue.prototype.myHttp= myhttp;
 Vue.use(Vant);
 

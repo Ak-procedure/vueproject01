@@ -3,7 +3,7 @@
     <div id="title">
       <span @click="back">返回</span>
       <span>{{title.title}}</span>
-      <router-link :to="{path:'/mine'}">登录/注册</router-link>
+      <router-link :to="{path:logino?'/mine':'/noLogin'}" >登录/注册</router-link>
     </div>
     <div id="filters">
       <van-dropdown-menu>
@@ -110,10 +110,19 @@
           {name:'起送价最低'},
           {name:'配送速度最快'},
           {name:'评分最高'}
-        ]
+        ],
+        logino:''
       }
     },
     created() {
+      this.axios.get('https://elm.cangdu.org/v1/user').then((res)=> {
+        if (res.data.message) {
+          this.logino = false;
+          console.log(res.data.message);
+        } else {
+          this.logino = true
+        }
+      });
       this.$store.state.shopcar = false;
       this.$store.state.showOrNot = false;
       this.title = this.$route.query;

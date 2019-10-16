@@ -2,7 +2,7 @@
   <div id="Citys">
     <div id="CityHeader">
     <span class="left_z">ele.me</span>
-    <router-link :to="{path:'/mine'}" class="right_z">登录|注册</router-link>
+    <router-link :to="{path:logino?'/mine':'/noLogin'}" class="right_z">登录|注册</router-link>
     <div class="empty"></div>
     </div>
     <div id="Dwcity">
@@ -42,10 +42,19 @@
       return {
         arr1: [],
         arr2: [],
-        arr3: []
+        arr3: [],
+        logino:''
       }
     },
     created(){
+      this.axios.get('https://elm.cangdu.org/v1/user').then((res)=> {
+        if (res.data.message) {
+          this.logino = false;
+          console.log(res.data.message);
+        } else {
+          this.logino = true
+        }
+      });
         this.axios.get('http://elm.cangdu.org/v1/cities?type=hot').then((res)=>{
         this.arr3 = res.data;
         }).then(()=>{

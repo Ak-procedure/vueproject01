@@ -1,18 +1,17 @@
 <template>
   <div class="reF">
     <div class="res">
-      <router-link :to="{path:'/mima_z'}">
+      <router-link @click.native="back" :to="{}">
         <i class="iconfont icon-fanhuijiantou"></i>
       </router-link>
       <p>重置密码</p>
     </div>
     <div class="reI">
-      <input type="text" placeholder="用户名"><br>
-      <input type="text" placeholder="旧密码"><br>
-      <input type="text" placeholder="新密码"><br>
-      <input type="text" placeholder="确认密码"><br>
-      <input type="text" placeholder="验证码">
-
+      <input type="text" placeholder="用户名" v-model="I1"><br>
+      <input type="text" placeholder="旧密码" v-model="I2"><br>
+      <input type="text" placeholder="新密码" v-model="I3"><br>
+      <input type="text" placeholder="确认密码" v-model="I4"><br>
+      <input type="text" placeholder="验证码" v-model="I5">
     </div>
     <div class="imgs">
       <img :src="arr" alt="">
@@ -21,17 +20,21 @@
         <div style="color: blue" @click="yan">换一张</div>
       </div>
     </div>
-    <button class="btn">确认修改</button>
+    <button class="btn" @click="chongzhimima">确认修改</button>
   </div>
 </template>
 
 <script>
-  // import '../../../node_modules/bootstrap/dist/css/bootstrap.css'
   export default {
     name: "test",
     data(){
       return{
-        arr:''
+        arr:'',
+        I1:'',
+        I2:'',
+        I3:'',
+        I4:'',
+        I5:'',
       }
     },
     methods:{
@@ -40,6 +43,20 @@
           console.log(response.data.code);
           this.arr = response.data.code
         })
+      },
+      chongzhimima(){
+        this.axios.post('https://elm.cangdu.org/v2/changepassword',{username:this.I1,oldpassWord:this.I2,newpassword:this.I3,confirmpassword:this.I4,captcha_code:this.I5}).then((res)=>{
+          console.log(res.data);
+          if(res.data.type){
+             alert(res.data.message);
+          }else {
+            alert(res.data.success);
+
+          }
+        })
+      },
+      back(){
+        this.$router.go(-1)
       }
     },
     created(){

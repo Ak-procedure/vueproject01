@@ -3,7 +3,9 @@
 <div class="checkCar">
   <div>
     <span>
-     <span></span>
+     <span>
+       <img src="../../assets/imgs/shopcar.png" alt="">
+     </span>
     </span>
   </div>
   <div>
@@ -48,8 +50,9 @@
   display: block;
   width: 3.5rem;
   height: 3.5rem;
-  background: white;
   border-radius: 50%;
+  /*background: #333333;*/
+  background-color: #3190e8;
   border: .3rem solid #444444;
   position: absolute;
   top: -0.8rem;
@@ -59,8 +62,16 @@
   display: block;
   width: 100%;
   height: 100%;
-  background: white;
   border-radius: 50%;
+  font-size: 0;
+}
+
+.checkCar>div:nth-child(1)>span>span img{
+
+  width: 70%;
+  height: 70%;
+  margin-left: .5rem;
+  margin-top: .5rem;
 }
 .checkCar>div:nth-child(2){
    width: 45%;

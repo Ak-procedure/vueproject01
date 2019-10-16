@@ -5,15 +5,14 @@
         <p>密码登录</p>
       </div>
       <div class="ins">
-        <input type="text" placeholder="账号">
-        <input type="password" placeholder="密码" v-if="show1">
-        <input type="text" placeholder="密码"v-else>
-        <input type="text" placeholder="验证码">
+        <input type="text" placeholder="账号" v-model="IV1">
+        <input type="password" placeholder="密码" v-model="IV2" v-if="show1">
+        <input type="text" placeholder="密码"v-else v-model="IV2">
+        <input type="text" placeholder="验证码" v-model="IV3">
       </div>
-
       <p class="word">温馨提示:未注册过的账号，登录时将自动注册</p>
       <p class="word">注册过的用户可凭账号密码登录</p>
-      <button class="btn">登录</button>
+      <button @click="postqq" class="btn">登录</button>
       <div class="yzm">
         <img :src="arr" alt="">
         <div class="see">
@@ -34,7 +33,10 @@
           return{
             arr:'',
             show1:false,
-            checked: true
+            checked: true,
+            IV1:'',
+            IV2:'',
+            IV3:'',
           }
       },
       methods:{
@@ -43,14 +45,24 @@
           },
         yan(){
             this.axios.post("https://elm.cangdu.org/v1/captchas").then((res)=>{
-              console.log(res.data.code)
+              console.log(res.data.code);
               this.arr = res.data.code
             })
         },
-        cc(){
-
+        postqq(){
+            this.axios.post('https://elm.cangdu.org/v2/login',{username:this.IV1,password:this.IV2,captcha_code:this.IV3}).then((res)=>{
+              console.log(res.data);
+              if (res.data.type){
+                // console.log("验证失败");
+                alert(res.data.message);
+              }else {
+                // console.log("验证成功");
+                this.$router.push({path:'/mine'})
+              }
+            })
         }
       },
+
       created(){
           this.yan();
       }

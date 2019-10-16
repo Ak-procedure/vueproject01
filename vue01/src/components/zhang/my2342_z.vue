@@ -6,34 +6,30 @@
     </div>
     <div class="xian_z"></div>
     <div id="headImg_z">
-      <router-link :to="{path:'/mima_z',query: {msg:'密码登录'}}">
+      <router-link :to="{path:logino?'/zhanghuxinxi':'/noLogin'}">
         <p class="bgcImg"></p>
-        <span class="putIn01_z">{{2342}}</span>
+        <span class="putIn01_z">{{users.username}}</span>
         <span class="putIn02_z">暂无绑定手机号</span>
         <span class="pointRight_z">></span>
       </router-link>
     </div>
-
     <div class="zero_z">
-      <router-link :to="{path:'/myYue_z',query: {msg:'我的余额'}}" class="balance_z">
+      <router-link :to="{path:'/myYue_z'}" class="balance_z">
         <span class="num01_z">0.00</span>元
         <p>我的余额</p>
       </router-link>
-
-      <router-link :to="{path:'/myYouhui_z',query: {msg:'我的优惠'}}" class="preferential_z">
+      <router-link :to="{path:'/myYouhui_z'}" class="preferential_z">
         <span class="num02_z">{{3}}</span>个
         <p>我的优惠</p>
       </router-link>
 
-      <router-link :to="{path:'/myJifen_z',query: {msg:'我的积分'}}" class="integral_z">
+      <router-link :to="{path:'/myJifen_z'}" class="integral_z">
         <span class="num03_z">{{0}}</span>元
         <p>我的积分</p>
       </router-link>
-
     </div>
-
     <div class="dingdan_z">
-      <router-link :to="{path:'/TuiJianYouJiang',query:{msg:'推荐有奖'}}">
+      <router-link :to="{path:'/TuiJianYouJiang'}">
         <p class="hr_z">
           <i class="iconfont icon-weibiaoti-"></i>
           <span>我的订单</span>
@@ -41,7 +37,7 @@
         </p>
       </router-link>
 
-      <router-link :to="{path:'/soushuo_z',query:{msg:'搜索'}}">
+      <router-link :to="{path:'/soushuo_z'}">
         <p class="hr_z">
           <i class="iconfont icon-jifenshangcheng"></i>
           <span>积分商城</span>
@@ -82,13 +78,29 @@
 <script>
   export default {
     name: "my2342_z",
+    data(){
+      return{
+        users:'',
+        logino:''
+      }
+    },
     methods:{
       back() {
         this.$router.go(-1)
       }
     },
    created(){
-      this.$store.state.shopcar=false;
+  this.axios.get('https://elm.cangdu.org/v1/user').then((res)=>{
+    this.users=res.data;
+    console.log(res.data);
+    if(res.data.message){
+      this.logino=false;
+      console.log(res.data.message);
+    }else {
+      this.logino=true
+    }
+  });
+     this.$store.state.shopcar=false;
      this.$store.state.showOrNot = true;
     }
   }
