@@ -61,6 +61,8 @@
     },
     created() {
       this.ask();
+      this.$store.state.shopcar=false;
+      this.$store.state.showOrNot = false;
     }
   }
 </script>

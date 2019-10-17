@@ -103,7 +103,6 @@
           console.log(res.data);
           this.arr1=res.data;
         });
-        // console.log(this.hInputV[e].inputtext);
       }
     }
   }

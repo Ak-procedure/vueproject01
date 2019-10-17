@@ -9,7 +9,8 @@
             <li><h3>{{getS.name}}</h3></li>
             <li class="clear">商家配送/分钟送达/{{getS.piecewise_agent_fee.tips}}<span class="flr">></span></li>
             <li>公告:{{getS.promotion_info}}</li>
-            <li>{{getS.activities[0]?getS.activities[0].description:null}}
+            <li>
+              {{getS.activities[0]?getS.activities[0].description:null}}
               <span class="flr">1个活动></span></li>
           </ul>
         </div>
@@ -62,7 +63,14 @@
                 <div class="foot">
                   <span v-if="v.specifications.length>=1?true:false" class="xgg" @click="chooseGG(v,i)">选规格</span>
                   <div v-else class="countjia">
-                    <van-stepper @change="addShopCar2(v,i)" min="0" v-model="countarr[i]"/>
+                    <span v-if="v.zidingyi==0||v.zidingyi==undefined?false:true" @click="addShopCar3(v,i)"
+                          class="spanone">
+                    <span>—</span>
+                    </span>
+                    <span v-if="v.zidingyi==0||v.zidingyi==undefined?false:true" class="spantwo">{{v.zidingyi==undefined?0:v.zidingyi}}</span>
+                    <span class="spanthree" :class="arrnm[i]>0?{a:true}:{b:true}" @click="addShopCar2(v,i)">
+                      <span>+</span>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -176,12 +184,12 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+
   export default {
     name: "Shangjia",
     data() {
       return {
-        //购物车商品数量
-        countarr: [],
         //规格
         ggarr: '',
         ggg: false,
@@ -192,7 +200,7 @@
         activeKey: 0,
         active: 0,
         //展示的商品
-        showF: '',
+        showF: [],
         //评价的标签
         pingjia: '',
         //用户评价
@@ -205,7 +213,9 @@
         temporary: '',
         ind: 0,
         chooseTrue: false,
-        clickindex: 0
+        clickindex: 0,
+        arrnm: [],
+        guigeobj: ''
       }
     },
     created() {
@@ -223,7 +233,8 @@
         // console.log(res.data);
         this.shangpin = res.data;
       }).then(() => {
-        if (this.shangpin[0]) {
+        // console.log(this.shangpin[0]);
+        if (this.shangpin[0]!=undefined) {
           this.showfoods(this.shangpin[0])
         }
         else {
@@ -244,18 +255,39 @@
             // console.log(res.data);
           })
         })
+
+      //把商家id和经纬度本地存储起来
+      // console.log(this.getS);
+      if (this.getS == undefined) {
+        return
+      } else {
+        let restaurant_id = this.getS.id;
+        let geohash = this.getS.location[1] + ',' + this.getS.location[0];
+        window.localStorage.setItem('restaurant_id', restaurant_id);
+        window.localStorage.setItem('geohash', geohash);
+      }
     },
     methods: {
       checkit(index) {
-        // console.log(index);
         this.index = index;
       },
       back() {
         this.$router.go(-1)
       },
       showfoods(e) {
-        // console.log(e);
+        console.log(e);
         this.showF = e
+        //  获取local添加过的数量
+        let cara = JSON.parse(window.localStorage.getItem('shopcar'));
+        // console.log(cara);
+        // console.log(this.showF.foods);
+        for (let in1 in cara) {
+          for (let index in this.showF.foods) {
+            if (cara[in1].name == this.showF.foods[index].name) {
+              this.showF.foods[index] = cara[in1];
+            }
+          }
+        }
       },
       chuli(x) {
         // console.log(x);
@@ -270,6 +302,7 @@
       chooseGG(v, i) {
         this.GGshow = true;
         this.ggarr = v.specifications;
+        this.guigeobj = v
       },
       guanbi() {
         //  关闭
@@ -278,54 +311,80 @@
       },
       guigeqr(n, m) {
         this.ind = m;
+        console.log(n, m);
         this.temporary = n;
       },
-      addShopCar() {
-        console.log(this.temporary);
-      },
-      addShopCar2(v, i) {
-        this.clickindex = i;
-        // console.log(this.countarr[i]);
-        let foodobj = v.specfoods[0];
-        console.log(foodobj);
-        let objs={
-          restaurant_id: this.getS.id,
-          geohash: this.getS.location[1] + ',' + this.getS.location[0],
-          entities:
-            [{
-              attrs: [],
-              extra: {},
-              id: foodobj.food_id,
-              name: foodobj.name,
-              packing_fee: foodobj.packing_fee,
-              price: foodobj.price,
-              quantity: this.countarr[i],
-              sku_id: foodobj.sku_id,
-              specs: '默认',
-              stock: foodobj.stock,
-            }]
+      //选择规格并加入购物车
+      addShopCar(v, i) {
+        Vue.set(this.arrnm, i, 1);
+        //确认规格
+        // console.log(this.guigeobj.specfoods[this.ind]);
+        if (this.guigeobj.zidingyi == undefined) {
+          this.guigeobj.zidingyi = 1
+        } else {
+          this.guigeobj.zidingyi++
         }
-        console.log(objs);
-        this.axios.post('https://elm.cangdu.org/v1/carts/checkout', {
-          restaurant_id: this.getS.id,
-          geohash: this.getS.location[1] + ',' + this.getS.location[0],
-          entities:
-            [{
-            attrs: [],
-            extra: {},
-            id: foodobj.food_id,
-            name: foodobj.name,
-            packing_fee: foodobj.packing_fee,
-            price: foodobj.price,
-            quantity: this.countarr[i],
-            sku_id: foodobj.sku_id,
-            specs: '默认',
-            stock: foodobj.stock,
-          }]
-        }).then((res) => {
-          console.log(res.data);
-        })
+        //获取localStorage数据
+        let arrays = [];
+        let arrs1 = JSON.parse(window.localStorage.getItem('shopcar'));
+        // console.log(arrs1);
+        for (let is in arrs1) {
+          if (arrs1[is].name == this.guigeobj.name) {
+            continue
+          }
+          arrays.push(arrs1[is])
+        }
+        arrays.push(this.guigeobj);
+        // console.log(arrays);
+        let shoparr = JSON.stringify(arrays);
+        window.localStorage.setItem('shopcar', shoparr);
+        this.GGshow = false;
+      },
+      //购物车数量减少
+      addShopCar3(v, i) {
+        Vue.set(this.arrnm, i, 1);
+        v.zidingyi--;
+        if (v.zidingyi <= 0) {
+          v.zidingyi = 0
+        }
+        //获取localStorage数据
+        let arrays = [];
+        let arrs1 = JSON.parse(window.localStorage.getItem('shopcar'));
+        // console.log(arrs1);
+        for (let is in arrs1) {
+          if (arrs1[is].name == v.name) {
+            continue
+          }
+          arrays.push(arrs1[is])
+        }
+        arrays.push(v);
+        // console.log(arrays);
+        let shoparr = JSON.stringify(arrays);
+        window.localStorage.setItem('shopcar', shoparr);
+      },
+      //购物车数量增加
+      addShopCar2(v, i) {
+        Vue.set(this.arrnm, i, 1);
+        // this.clickindex = i;
+        if (v.zidingyi == undefined) {
+          v.zidingyi = 1
+        } else {
+          v.zidingyi++
+        }
 
+        //获取localStorage数据
+        let arrays = [];
+        let arrs1 = JSON.parse(window.localStorage.getItem('shopcar'));
+        // console.log(arrs1);
+        for (let is in arrs1) {
+          if (arrs1[is].name == v.name) {
+            continue
+          }
+          arrays.push(arrs1[is])
+        }
+        arrays.push(v);
+        let shoparr = JSON.stringify(arrays);
+        window.localStorage.setItem('shopcar', shoparr);
       }
     }
   }
@@ -775,5 +834,46 @@
     float: right;
     line-height: 2.2rem;
     margin-right: 1rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .spanone {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    box-sizing: border-box;
+    border: 1px solid #3190e8;
+    border-radius: 50%;
+    color: #3190e8;
+    text-align: center;
+    font-weight: 800;
+    float: left;
+    font-size: 0.8rem;
+  }
+
+  .spanthree {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: #3190e8;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    font-weight: 800;
+    font-size: 1.5rem;
+    float: left;
+  }
+
+  .countjia > span > span {
+    display: block;
+    margin-top: -0.4rem;
+  }
+
+  .spantwo {
+    display: block;
+    float: left;
+    width: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
   }
 </style>

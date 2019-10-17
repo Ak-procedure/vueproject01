@@ -29,7 +29,7 @@
       </router-link>
     </div>
     <div class="dingdan_z">
-      <router-link :to="{path:'/TuiJianYouJiang'}">
+      <router-link :to="{}">
         <p class="hr_z">
           <i class="iconfont icon-weibiaoti-"></i>
           <span>我的订单</span>
@@ -37,7 +37,7 @@
         </p>
       </router-link>
 
-      <router-link :to="{path:'/soushuo_z'}">
+      <router-link :to="{}">
         <p class="hr_z">
           <i class="iconfont icon-jifenshangcheng"></i>
           <span>积分商城</span>

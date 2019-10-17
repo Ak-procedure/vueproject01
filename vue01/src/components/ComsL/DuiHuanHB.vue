@@ -88,69 +88,67 @@
 
   .van-nav-bar__arrow {
     color: #fff;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
   }
 
   .van-nav-bar__title {
     color: whitesmoke;
     font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 1.3rem;
   }
 
   .code {
-    margin: .7rem;
+    margin: 1rem;
     background-color: #f1f1f1;
   }
 
   .logoin {
-    font-size: .7rem;
     color: #666;
-    padding: .6rem .4rem;
-    border-radius: .2rem;
+    padding: .88rem .58rem;
+    border-radius: .3rem;
   }
 
   .redeem {
-    margin-top: .7rem;
+    margin-top: 1rem;
     display: flex;
   }
 
   .left {
-    font-size: .7rem;
     color: #666;
-    padding: .4rem;
-    border-radius: .15rem;
+    padding: .58rem;
+    border-radius: .2rem;
     flex: 3;
   }
 
   .right {
-    margin-left: 0.5rem;
+    margin-left: 0.73rem;
     flex: 2;
-    border-radius: .15rem;
+    border-radius: .2rem;
     align-items: center;
     background: #fff;
   }
 
   .des {
     display: inline-block;
-    font-size: .55rem;
+    font-size: .8rem;
     color: #666;
-    margin-top: .2rem;
+    margin-top: .3rem;
   }
 
   .change {
     color: #3b95e9;
-    margin-top: .2rem;
+    margin-top: .3rem;
   }
 
   .btn {
     width: 90%;
-    margin-left: 0.9rem;
-    border-radius: .2rem;
+    margin-left: 1.3rem;
+    border-radius: .3rem;
     background-color: #ccc;
     border: 1px solid #ccc;
-    font-size: .8rem;
+    font-size: 1.1rem;
     color: #fff;
-    line-height: 1.8rem;
+    line-height: 2.6rem;
     text-align: center;
   }
 

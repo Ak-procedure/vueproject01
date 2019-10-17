@@ -61,9 +61,31 @@
 
       <div class="exitlogin" @click="exits">退出登录</div>
 
+<div v-if="showTC" class="mengban">
+      <div   class="cover-content  cover-animate">
+        <div class="sa-icon">
+          <span class="sa-body"></span>
+          <span class="sa-dot"></span>
+        </div>
+        <h2>是否退出登录</h2>
+        <div class="sa-botton">
+          <button class="waiting" @click="showTC=false">再等等</button>
+          <div style="display: inline-block;">
+            <button class="quitlogin" @click="tuichu">退出登录</button>
+          </div>
+        </div>
+      </div>
+
+</div>
+
+
+
+
+
     </div>
 
     <!--弹窗-->
+
     <div class="tip_text_container" v-if="nnn">
       <div class="tip_icon">
         <span></span>
@@ -82,10 +104,13 @@
     data() {
       return {
         nnn: false,
-        users: ''
+        users: '',
+        showTC:false
       }
     },
     created() {
+      this.$store.state.shopcar=false;
+      this.$store.state.showOrNot = false;
       this.axios.get('https://elm.cangdu.org/v1/user').then((res) => {
         this.users = res.data;
         console.log(res.data);
@@ -102,8 +127,13 @@
         this.nnn = !this.nnn;
       },
       exits() {
+        this.showTC=true;
+      },
+      tuichu(){
         this.axios.get('https://elm.cangdu.org/v2/signout').then((res) => {
           console.log(res.data);
+        }).then(()=>{
+          this.showTC=false;
         })
       }
     }
@@ -114,7 +144,7 @@
   #mine_z {
     width: 100%;
     height: 100%;
-    background-color: #f5f5f5;
+    /*background-color: #f5f5f5;*/
   }
 
   .myde_z {
@@ -296,4 +326,85 @@
     border-bottom-left-radius: .37rem;
     border-bottom-right-radius: .37rem;
   }
+
+  .cover-animate {
+    transition: all 1s;
+    animation: bounceIn .6s;
+  }
+  .cover-content {
+    width: 94%;
+    background: #fff;
+    padding-bottom: 1rem;
+    position: absolute;
+    top: 20%;
+    left: 3%;
+    z-index: 1000;
+    border-radius: 5px;
+  }
+  .sa-icon {
+    width: 90px;
+    height: 90px;
+    border: 4px solid #f8bb86;
+    border-radius: 50%;
+    margin: 20px auto;
+    position: relative;
+  }
+  .sa-body {
+    width: 5px;
+    height: 47px;
+    border-radius: 2px;
+    background: #f8bb86;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10px;
+  }
+  .sa-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #f8bb86;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+  }
+  .cover-content h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    color: #575757;
+    font-weight: 500;
+    margin: 25px 0;
+  }
+  .sa-botton{
+    width: 100%;
+    text-align: center;
+  }
+  .waiting {
+    background: #c1c1c1;
+    margin-right: .58rem;
+  }
+  .sa-botton button {
+    display: inline-block;
+    padding: .58rem 1.46rem;
+    border-radius: 5px;
+    font-size: .88rem;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-top: 26px;
+  }
+  .quitlogin {
+    background: #dd6b55;
+  }
+.mengban{
+  background: rgba(0,0,0,0.3);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
 </style>

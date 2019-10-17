@@ -3,7 +3,7 @@
 
     <div class="myde_z">
       <span @click="back" class="pointLeft_z"><</span>
-      <span class="text_z">{{msg}}</span>
+      <span class="text_z">我的余额</span>
     </div>
 
     <div class="xian_z"></div>
@@ -41,11 +41,11 @@
     name: "myYue_z",
     data(){
       return{
-        msg:''
       }
     },
     created(){
-      this.msg=this.$route.query.msg
+      this.$store.state.shopcar=false;
+      this.$store.state.showOrNot = false;
     },
     methods:{
       back() {
@@ -63,24 +63,23 @@
   }
   .myde_z {
     width: 100%;
-    height: 8%;
-    background: cornflowerblue;
+    /*height: 8%;*/
+    background: #3190e8;
     color: white;
-    font-size: 20px;
+    font-size: 1.25rem;
+    text-align: center;
+    padding: 0.5rem 0 ;
+    position: relative;
+    font-weight: 600;
   }
   .pointLeft_z {
-    color: white;
-    margin-left: 3%;
-    margin-top: 0;
-    font-size: 35px;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 10%;
+    left: 3%;
+    font-weight: 400;
   }
-  .text_z {
-    margin-left: 30%;
-  }
-  .xian_z {
-    border-bottom: 1px solid #f1f1f1;
 
-  }
   .dd_z {
     padding: 0.43rem;
     background-color: #3190e8;

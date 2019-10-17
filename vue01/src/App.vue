@@ -7,6 +7,11 @@
 </template>
 
 <script>
+  import  Vue from 'vue'
+  import { Lazyload } from 'vant';
+  Vue.use(Lazyload, {
+    lazyComponent: true
+  });
 
   import BottomCom from "./components/ComsL/BottomCom";
   import ShopCar from "./components/ComsL/ShopCar";

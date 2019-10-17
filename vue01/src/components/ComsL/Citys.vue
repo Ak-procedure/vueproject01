@@ -47,6 +47,9 @@
       }
     },
     created(){
+      this.$store.state.shopcar=false;
+      this.$store.state.showOrNot = false;
+
       this.axios.get('https://elm.cangdu.org/v1/user').then((res)=> {
         if (res.data.message) {
           this.logino = false;

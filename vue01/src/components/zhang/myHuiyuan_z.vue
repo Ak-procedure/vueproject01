@@ -46,7 +46,7 @@
             <span>1个月</span>
             <span> ¥20</span>
           </div>
-          <div class="apply_vip_buy_right">购买</div>
+          <div @click="buys" class="apply_vip_buy_right">购买</div>
         </div>
       </div>
 
@@ -85,6 +85,9 @@
     methods:{
       back() {
         this.$router.go(-1)
+      },
+      buys(){
+        this.$router.push({path:'/buyhy'})
       }
     }
   }

@@ -53,16 +53,20 @@
       this.$store.state.showOrNot=false;
       this.city1 = this.$route.query;
       var storage=window.localStorage;
-      this.historySearcharr=JSON.parse(storage.data);
-      // console.log(JSON.parse(storage.data));
+      this.historySearcharr=JSON.parse(storage.getItem('data'));
     },
     methods: {
       back(){
         this.$router.go(-1)
       },
       serchCity(id) {
-        this.shows=true;
         let input1V = document.getElementById('input1');
+        let val= input1V.value.replace(/\s*/g,"");
+
+        if(val==''){
+          return
+        }
+        this.shows=true;
         // console.log(input1V.value);
         this.axios.get('https://elm.cangdu.org/v1/pois?city_id=' + id + '&keyword=' + input1V.value + '&type=search').then((res) => {
           this.msgs = res.data
@@ -77,7 +81,11 @@
         var arr=[];
         let getL= JSON.parse(storage.getItem('data'));
         for (let v in getL) {
-          arr.push(getL[v]);
+          if(getL[v].name==e.name&&getL[v].address==e.address){
+            continue
+          }else {
+            arr.push(getL[v]);
+          }
         }
         arr.push(data);
         var d=JSON.stringify(arr);

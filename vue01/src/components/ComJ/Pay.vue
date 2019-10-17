@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="pay">
-        <router-link :to="{}">
+        <router-link @click.native="back" :to="{}">
           <i class="iconfont icon-fanhuijiantou"></i>
         </router-link>
         <p>确认支付</p>
@@ -42,7 +42,7 @@
         <img src="./弹框-警告.png" alt="">
 <p>当前环境无法支付，请打开官方APP</p>
         <p>进行付款</p>
-        <button @click="btn1">确认</button>
+        <button>确认</button>
       </div>
     </div>
 </template>
@@ -56,11 +56,14 @@
             show:false
           }
       },
+      created(){
+        this.$store.state.shopcar=false;
+        this.$store.state.showOrNot = false;
+      },
       methods:{
-          btn1(){
-           // 跳到订单列表
-          this.$router.push({})
-          }
+        back(){
+          this.$router.go(-1)
+        }
       }
     }
 </script>
