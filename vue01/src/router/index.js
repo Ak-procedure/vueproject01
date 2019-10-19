@@ -44,6 +44,7 @@ import YEshuoming from '../components/zhang/YEshuoming'//余额说明
 import HBshuoming from '../components/zhang/HBshuoming'//红包说明
 import shuoming from '../components/zhang/shuoming'//代金券说明
 import Gmjl from '../components/zhang/GMjilu'
+import Order from '../components/ComsL/Orderli_y'
  export default new Router({
   routes: [
     {path: '/', component: City},    //城市定位以及选择
@@ -85,7 +86,8 @@ import Gmjl from '../components/zhang/GMjilu'
     {path:'/YEshuoming',component:YEshuoming},
     {path:'/JFshuoming',component:JFshuoming},
     {path:'/HYYHshuoming',component:HYYHshuoming},
-    {path:'/gmjl',component:Gmjl}
+    {path:'/gmjl',component:Gmjl},
+    {path:'/Order',component:Order}
 
   ]
 })

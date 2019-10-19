@@ -28,7 +28,8 @@
             <div class="flexFood">
               <div id="left">
                 <van-sidebar v-model="activeKey">
-                  <van-sidebar-item @click="showfoods(v)" v-for="(v,i) in shangpin" :key="i" :title="v.name" :info="v.xs==0?'':v.xs"/>
+                  <van-sidebar-item @click="showfoods(v)" v-for="(v,i) in shangpin" :key="i" :title="v.name"
+                                    :info="v.xs==0?'':v.xs"/>
                 </van-sidebar>
               </div>
               <div id="right">
@@ -71,12 +72,13 @@
                   <div class="foot">
                     <span v-if="v.specifications.length>=1?true:false" class="xgg" @click="chooseGG(v,i)">选规格</span>
                     <div v-else class="countjia">
-                    <span v-if="v.zidingyi==0||v.zidingyi==undefined?false:true" @click="addShopCar3(v,i)" class="spanone">
+                    <span v-if="v.zidingyi==0||v.zidingyi==undefined?false:true" @click="addShopCar3(v,i)"
+                          class="spanone">
                       <!--减-->
                     <span>—</span>
                     </span>
                       <span v-if="v.zidingyi==0||v.zidingyi==undefined?false:true" class="spantwo">{{v.zidingyi==undefined?0:v.zidingyi}}</span>
-                      <span class="spanthree" :class="arrnm[i]>0?{a:true}:{b:true}" @click="addShopCar2(v,i)">
+                      <span class="spanthree" :class="arrnm[i]>0?{a:true}:{b:true}" @click="addShopCar2($event,v,i)">
                       <!--加入购物车 ----------------------------------->
                       <span>+</span>
                     </span>
@@ -137,15 +139,16 @@
                       <span>{{v.rated_at}}</span>
                     </p>
                     <p>
-  <van-rate v-model="starV.food_score" allow-half size="5" gutter="0" void-icon="star" void-color="#eee"/>
+                      <van-rate v-model="starV.food_score" allow-half size="5" gutter="0" void-icon="star"
+                                void-color="#eee"/>
                       <span>
         {{v.time_spent_desc}}</span>
                     </p>
                     <p>
-           <img v-for="(n,m) in v.item_ratings" :src="chuli(n)" alt="">
+                      <img v-for="(n,m) in v.item_ratings" :src="chuli(n)" alt="">
                     </p>
                     <p>
-          <span v-for="(x,y) in v.item_ratings ">{{x.food_name}}</span>
+                      <span v-for="(x,y) in v.item_ratings ">{{x.food_name}}</span>
                     </p>
                   </div>
                 </li>
@@ -154,7 +157,7 @@
           </van-tab>
         </van-tabs>
       </div>
-     <!--规格弹框-->
+      <!--规格弹框-->
       <div id="GG" v-if="GGshow">
         <div>
           <ul class="lists2">
@@ -163,7 +166,8 @@
             </li>
             <li>规格</li>
             <li>
-            <span :class="{changeToBlue:ind==m?true:false}" class="choseGg" @click="guigeqr(n,m)" v-for="(n,m) in ggarr[0].values" :key="m">{{n}}</span>
+              <span :class="{changeToBlue:ind==m?true:false}" class="choseGg" @click="guigeqr(n,m)"
+                    v-for="(n,m) in ggarr[0].values" :key="m">{{n}}</span>
             </li>
             <li>￥<span>20</span>
               <span @click="addShopCar">加入购物车</span>
@@ -176,8 +180,8 @@
       <img src="../../assets/imgs/gif1.gif">
     </div>
     <div id="ssd" v-if="GIF2">
-  <div id="animat"></div>
-    <span id="anis"></span>
+      <div id="animat"></div>
+      <span id="anis"></span>
     </div>
   </div>
 </template>
@@ -215,11 +219,11 @@
         arrnm: [],
         guigeobj: '',
         GIFS: false,
-        GIF2:false
+        GIF2: false
       }
     },
     created() {
-      Math.random()>0.5?this.GIFS=true:this.GIF2=true;
+      Math.random() > 0.5 ? this.GIFS = true : this.GIF2 = true;
       this.$store.state.shopcar = true;
       this.$store.state.showOrNot = false;
       this.getS = JSON.parse(window.localStorage.getItem('shangJXX'));
@@ -356,10 +360,29 @@
         this.$parent.pipe();
       },
       //购物车数量增加
-      addShopCar2(v, i) {
-        console.log(v);
+      addShopCar2(e, v, i) {
+      let cs=  document.getElementsByClassName('spanthree');
+     let div1= document.createElement('div');
+     div1.innerHTML='+1';
+     div1.style.fontSize='0.8rem';
+     div1.style.width='30px';
+     div1.style.height='30px';
+     div1.style.borderRadius='50%';
+     div1.style.background='#3190e8';
+     div1.style.position='fixed';
+     div1.style.zIndex=1000;
+     div1.style.top=e.clientY-15+'px';
+     div1.style.left=e.clientX-15+'px';
+     div1.style.transition='all 1s';
+     cs[i].appendChild(div1);
+  setTimeout(function () {
+    div1.style.top='610px';
+    div1.style.left='10px';
+  },200);
+setTimeout(function () {
+  cs[i].removeChild(div1);
+},1000);
         Vue.set(this.arrnm, i, 1);
-
         if (v.zidingyi == undefined) {
           v.zidingyi = 1
         } else {
@@ -398,6 +421,7 @@
     width: 100%;
     height: 100%;
   }
+
   .gifDH {
     width: 100%;
     height: 100%;
@@ -409,21 +433,26 @@
     background: rgba(0, 0, 0, 0.3);
     z-index: 10000;
   }
+
   .gifDH > img {
     width: 100%;
     height: 100%;
   }
+
   .titBig {
     font-size: 1.5rem;
     font-weight: bold;
   }
+
   #header {
     background-color: rgba(119, 103, 137, .43);
   }
+
   .flr {
     float: right;
     margin-right: .5rem;
   }
+
   .clear {
     overflow: hidden;
   }
@@ -875,8 +904,11 @@
     font-weight: 800;
     font-size: 1.5rem;
     float: left;
+    position: relative;
   }
-
+.spanthree>div{
+  background: gold;
+}
   .countjia > span > span {
     display: block;
     margin-top: -0.4rem;
@@ -889,8 +921,9 @@
     line-height: 1.5rem;
     text-align: center;
   }
-/*动画*/
-  @keyframes AAA{
+
+  /*动画*/
+  @keyframes AAA {
     0% {
       background-position: 0% 0%;
     }
@@ -935,18 +968,20 @@
     }
 
   }
-  @keyframes bbb{
-    0%{
-      top:0px;
+
+  @keyframes bbb {
+    0% {
+      top: 0px;
     }
-    50%{
-      top:4rem;
+    50% {
+      top: 4rem;
     }
-    100%{
+    100% {
       top: 0px;
     }
   }
-  @keyframes ccc{
+
+  @keyframes ccc {
     0% {
       width: 4rem;
       height: 1rem;
@@ -962,7 +997,7 @@
 
   }
 
-  #ssd{
+  #ssd {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -971,28 +1006,30 @@
     background: white;
     z-index: 1000;
   }
+
   #animat {
     width: 5rem;
     height: 5rem;
     margin: 70% auto;
     overflow: hidden;
     background: url(../../assets/imgs/img.png) no-repeat;
-    background-size:5rem 35rem;
+    background-size: 5rem 35rem;
     background-position: 0 0;
     /*border: 1px solid rosybrown;*/
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    animation: AAA 4.2s  linear infinite,bbb 0.5s linear infinite;
+    animation: AAA 4.2s linear infinite, bbb 0.5s linear infinite;
   }
-  #anis{
-    background: rgb(211,211,211);
+
+  #anis {
+    background: rgb(211, 211, 211);
     border-radius: 50%;
     display: block;
     margin: 105% auto;
     width: 8rem;
-    height:2rem;
+    height: 2rem;
     animation: ccc .6s linear infinite alternate-reverse;
   }
 

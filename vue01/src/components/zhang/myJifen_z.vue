@@ -53,7 +53,9 @@
       }
     },
     created(){
-      this.msg=this.$route.query.msg
+      this.msg=this.$route.query.msg;
+      this.$store.state.shopcar=false;
+      this.$store.state.showOrNot = false;
     },
     methods :{
       back() {

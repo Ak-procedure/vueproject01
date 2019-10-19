@@ -50,7 +50,7 @@
         </div>
       </div>
 
-      <router-link :to="{path: '/duihuanhuiyuan',query: {msg:'兑换会员'}}"   class="header_style common_style">
+      <router-link :to="{path: '/duihuanhuiyuan',query: users}"   class="header_style common_style">
         <span class="header_left">兑换会员</span>
         <div class="header_right">
           <span >使用卡号卡密</span>

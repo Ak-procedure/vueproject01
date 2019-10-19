@@ -4,7 +4,7 @@
     <section class="title_y">
       <!--订单备注头部-->
       <header id="head_top_y">
-        <router-link :to="{}">
+        <router-link :to="{path:'/qrdingdan'}">
           <section class="head_nav_y">
             <svg width="100%" height="100%" version="1.1">
               <polyline points="14,19,4,9,13,0" :style="head_navs_y"></polyline>

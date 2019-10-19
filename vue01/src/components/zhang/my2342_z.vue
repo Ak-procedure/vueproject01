@@ -28,7 +28,7 @@
       </router-link>
     </div>
     <div class="dingdan_z">
-      <router-link :to="{}">
+      <router-link :to="{path:'/Order'}">
         <p class="hr_z">
           <i class="iconfont icon-weibiaoti-"></i>
           <span>我的订单</span>
@@ -104,26 +104,25 @@
   }
   .myde_z {
     width: 100%;
-    height: 8%;
-    background: cornflowerblue;
+    background: #3190e8;
     color: white;
-    font-size: 20px;
+    font-size: 1.25rem;
+    text-align: center;
+    position: relative;
+    padding: 0.7rem 0 ;
   }
   .pointLeft_z {
     color: white;
-    margin-left: 3%;
-    margin-top: 0;
-    font-size: 35px;
-  }
-  .text_z {
-    margin-left: 35%;
-  }
-  .xian_z {
-    border-bottom: 1px solid #f1f1f1;
+    font-size: 1.5rem;
+    font-weight: 400;
+    position: absolute;
+    top: 10%;
+    left: 3%;
   }
 
+
   #headImg_z {
-    background: cornflowerblue;
+    background: #3190e8;
     color: white;
     width: 100%;
     height: 90px;

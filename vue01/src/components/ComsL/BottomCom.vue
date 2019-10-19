@@ -17,7 +17,7 @@
           :src="props.active ? icon.active2 : icon.normal2"
         >
       </van-tabbar-item>
-      <van-tabbar-item :to="{}">
+      <van-tabbar-item :to="{path:'/Order'}">
         <span>订单</span>
         <img
           slot="icon"

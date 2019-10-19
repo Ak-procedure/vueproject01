@@ -1,20 +1,15 @@
 <template>
   <div id="mine_z">
-
     <div class="myde_z">
       <span @click="back" class="pointLeft_z"><</span>
-      <span class="text_z">{{msg}}</span>
+      <span class="text_z">兑换会员</span>
     </div>
-
-    <p class="buy_for">成功兑换后将关联到当前帐号： <span>342243</span></p>
-
+    <p class="buy_for">成功兑换后将关联到当前帐号： <span>{{users.username}}</span></p>
     <form class="form_style">
       <input type="text" name="cartNumber" maxlength="10" placeholder="请输入10位卡号">
       <input type="text" name="passWord" maxlength="6" placeholder="请输入6位卡密">
     </form>
-
     <p class="determine">兑换</p>
-
     <div class="Binding">
       <h3>——温馨提示——</h3>
       <p>新兑换的会员服务，权益以「会员说明」为准。</p>
@@ -23,22 +18,18 @@
       <p>年卡：<b>360</b>次减免配送费。</p>
       <p>＊仅限蜂鸟专送订单，每日最多减免3单，每单最高减免4元（一个月按31天计算）</p>
     </div>
-
-
-
   </div>
 </template>
-
 <script>
     export default {
         name: "duihuanhuiyuan",
       data(){
-        return{
-          msg:''
-        }
+          return{
+            users:''
+          }
       },
       created(){
-        this.msg=this.$route.query.msg
+        this.users=this.$route.query
       },
       methods:{
         back() {
@@ -56,21 +47,20 @@
   }
   .myde_z {
     width: 100%;
-    height: 8%;
-    background: cornflowerblue;
+    background: #3190e8;
     color: white;
-    font-size: 20px;
+    font-size: 1.25rem;
+    text-align: center;
+    position: relative;
+    padding: .7rem 0;
   }
   .pointLeft_z {
-    color: white;
-    margin-left: 3%;
-    margin-top: 0;
-    font-size: 35px;
+    font-size: 1.5rem;
+    font-weight: 100;
+    position: absolute;
+    top: 10%;
+    left: 3%;
   }
-  .text_z {
-    margin-left: 30%;
-  }
-
 
   .buy_for {
     font-size: .88rem;
