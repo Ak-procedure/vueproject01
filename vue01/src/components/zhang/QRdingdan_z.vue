@@ -3,7 +3,7 @@
     <div>
       <!--头部 确认订单-->
       <div id="head_top">
-        <span class="head_goback" @click="back"><</span>
+        <span class="head_goback" @click="backs"><</span>
         <span class="title_text">确认订单</span>
         <i @click="toMine" class="iconfont icon-denglu" id="Rentou"></i>
       </div>
@@ -117,7 +117,7 @@
       this.$store.state.showOrNot = false;
       let locArr=JSON.parse(window.localStorage.getItem('shopcar'));
       this.dingdanarr=locArr;
-      console.log(locArr);
+      // console.log(locArr);
       let packPrice=0
       let allMoney=0
       for (let i in locArr) {
@@ -128,8 +128,8 @@
       this.money=allMoney+packPrice+4
     },
     methods: {
-      back() {
-        this.$router.go(-1)
+      backs() {
+        this.$router.push({path:'/shangjia'})
       },
       change() {
         this.showOrNot = true;
@@ -143,19 +143,16 @@
     },
   }
 </script>
-
 <style scoped>
   .confirmOrderContainer {
     padding-top: 2.85rem;
     padding-bottom: 4.4rem;
   }
-
   .container_style {
     background-color: #fff;
     margin-top: .5rem;
     padding: .2rem 1rem;
   }
-
   /*头部 确认订单*/
   #head_top {
     background-color: #3190e8;
@@ -166,13 +163,11 @@
     width: 100%;
     height: 2.85rem;
   }
-
   .head_goback {
     font-size: 2rem;
     color: white;
     margin-left: .4rem;
   }
-
   .title_text {
     font-size: 1.1rem;
     color: #fff;
@@ -180,7 +175,6 @@
     font-weight: 700;
     margin-top: -1rem;
   }
-
   /*登录信息图标*/
   @font-face {
     font-family: "iconfont";

@@ -13,22 +13,18 @@
             <span>{{v.amount}}</span>
             <p>{{v.description_map.sum_condition}}</p>
           </div>
-
           <div class="list_item_right">
             <h4>{{v.name}}</h4>
             <p>{{v.description_map.validity_periods}}</p>
             <p>{{v.description_map.phone}}</p>
             <i class="iconfont icon-yiguoqi" id="big_z"></i>
           </div>
-
         </div>
         <div class="list_item_footer" v-if="v.limit_map?true:false">
           <p >{{v.limit_map.restaurant_flavor_ids}}</p>
         </div>
-
       </li>
     </ul>
-
   </div>
 </template>
 

@@ -25,14 +25,11 @@
       },
       created() {
         this.axios.get("https://elm.cangdu.org/v3/profile/explain").then((res)=> {
-          // console.log(res.data);
           this.text1 = res.data.pointtextContent.split("###");
-          console.log(this.text1);
           for (let i = 1; i < this.text1.length; i++) {
-            this.text1[i] = this.text1[i].replace(/(?<=[\u4e00-\u9fa5]+)\s/g, "？");
+            this.text1[i] = this.text1[i].replace(/([\u4e00-\u9fa5]+)\s/g, "？");
             this.text2.push(this.text1[i].split("？"));
           }
-          console.log(this.text2);
         });
       },
       methods:{

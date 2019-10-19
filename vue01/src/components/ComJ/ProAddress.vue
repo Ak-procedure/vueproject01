@@ -25,7 +25,6 @@
         name: "ProAddress",
       data(){
           return{
-
           }
       },
       methods: {
@@ -41,10 +40,7 @@
         backadd(v){
           this.$router.push({path:'/zhanghuxinxi'})
         }
-      },
-      // created(){
-      //   console.log(this.$store.state.address);
-      // }
+      }
     }
 </script>
 

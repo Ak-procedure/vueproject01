@@ -7,7 +7,9 @@
     <div class="xian_z"></div>
     <div id="headImg_z">
       <router-link :to="{path:logino?'/zhanghuxinxi':'/noLogin'}">
-        <p class="bgcImg"></p>
+        <p class="bgcImg">
+          <img src="../../assets/imgs/cxk.jpg" alt="">
+        </p>
         <span class="putIn01_z">{{users.username}}</span>
         <span class="putIn02_z">暂无绑定手机号</span>
         <span class="pointRight_z">></span>
@@ -157,6 +159,11 @@
     position: absolute;
     left: 15px;
     top: 15px;
+  }
+  .bgcImg>img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
   }
   .pointRight_z {
     position: absolute;

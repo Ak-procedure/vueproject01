@@ -2,33 +2,21 @@
   <div id="foods">
     <div id="nav">
       <!--向左箭头-->
-      <span @click="back">返回</span>
+      <span @click="backs">返回</span>
       <router-link :to="{path:'/jump'}">{{getCityRes.address}}</router-link>
-      <router-link :to="{path:logino?'/mine':'/noLogin'}">登录/注册</router-link>
+      <router-link :to="{path:logino?'/mine':'/noLogin'}">{{logino?'我的':'登录/注册'}}</router-link>
     </div>
     <div id="tit">
       <!--头部轮播效果Vant 插件-->
       <van-swipe class="lbt" indicator-color="white">
         <van-swipe-item>
           <van-grid :column-num="4">
-            <van-grid-item
-              v-for="(v,i) in foods1"
-              :icon="'//fuss10.elemecdn.com'+v.image_url"
-              :text="v.title"
-              :to="{path:'/fclass',query: v}"
-              :key="i"
-            />
+            <van-grid-item v-for="(v,i) in foods1" :icon="'//fuss10.elemecdn.com'+v.image_url" :text="v.title" :to="{path:'/fclass',query: v}" :key="i"/>
           </van-grid>
         </van-swipe-item>
         <van-swipe-item>
           <van-grid :column-num="4">
-            <van-grid-item
-              v-for="(v,i) in foods2"
-              :icon="'//fuss10.elemecdn.com'+v.image_url"
-              :text="v.title"
-              :to="{path:'/fclass',query: v}"
-              :key="i"
-            />
+            <van-grid-item v-for="(v,i) in foods2" :icon="'//fuss10.elemecdn.com'+v.image_url" :text="v.title" :to="{path:'/fclass',query: v}" :key="i"/>
           </van-grid>
         </van-swipe-item>
       </van-swipe>
@@ -122,8 +110,9 @@
         this.foods1 = FunData(res.data)[0];
         this.foods2 = FunData(res.data)[1];
       }).then(() => {
-        this.jwd = window.localStorage.getItem('geohash');
-        let asd= this.jwd.split(',');
+        this.jwd = window.localStorage.getItem('CitysHis');
+        // console.log(JSON.parse(this.jwd));
+        // let asd= this.jwd.split(',');
         //通过经纬度请求商家信息
         this.axios.get('https://elm.cangdu.org/shopping/restaurants?latitude=31.22967&longitude=121.4762').then((res) => {
           //将要展示的所有商家
@@ -132,8 +121,8 @@
       })
     },
     methods: {
-      back() {
-        this.$router.go(-1)
+      backs() {
+        this.$router.push({path:'/'})
       },
       jumpsj(v){
        //点击商家 存储本地并跳转

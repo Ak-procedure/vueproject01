@@ -61,29 +61,22 @@
 
       <div class="exitlogin" @click="exits">退出登录</div>
 
-<div v-if="showTC" class="mengban">
-      <div   class="cover-content  cover-animate">
-        <div class="sa-icon">
-          <span class="sa-body"></span>
-          <span class="sa-dot"></span>
-        </div>
-        <h2>是否退出登录</h2>
-        <div class="sa-botton">
-          <button class="waiting" @click="showTC=false">再等等</button>
-          <div style="display: inline-block;">
-            <button class="quitlogin" @click="tuichu">退出登录</button>
+      <div v-if="showTC" class="mengban">
+        <div class="cover-content  cover-animate">
+          <div class="sa-icon">
+            <span class="sa-body"></span>
+            <span class="sa-dot"></span>
+          </div>
+          <h2>是否退出登录</h2>
+          <div class="sa-botton">
+            <button class="waiting" @click="showTC=false">再等等</button>
+            <div style="display: inline-block;">
+              <button class="quitlogin" @click="tuichu">退出登录</button>
+            </div>
           </div>
         </div>
       </div>
-
-</div>
-
-
-
-
-
     </div>
-
     <!--弹窗-->
 
     <div class="tip_text_container" v-if="nnn">
@@ -105,20 +98,19 @@
       return {
         nnn: false,
         users: '',
-        showTC:false
+        showTC: false
       }
     },
     created() {
-      this.$store.state.shopcar=false;
+      this.$store.state.shopcar = false;
       this.$store.state.showOrNot = false;
       this.axios.get('https://elm.cangdu.org/v1/user').then((res) => {
         this.users = res.data;
-        console.log(res.data);
       })
     },
     methods: {
       back() {
-        this.$router.push({path:'/mine'})
+        this.$router.push({path: '/mine'})
       },
       changeS() {
         this.nnn = !this.nnn;
@@ -127,26 +119,21 @@
         this.nnn = !this.nnn;
       },
       exits() {
-        this.showTC=true;
+        this.showTC = true;
       },
-      tuichu(){
+      tuichu() {
         this.axios.get('https://elm.cangdu.org/v2/signout').then((res) => {
-          console.log(res.data);
-        }).then(()=>{
-          this.showTC=false;
+          this.showTC = false;
         })
       }
     }
   }
 </script>
-
 <style scoped>
   #mine_z {
     width: 100%;
     height: 100%;
-    /*background-color: #f5f5f5;*/
   }
-
   .myde_z {
     width: 100%;
     background: #3190e8;
@@ -159,7 +146,6 @@
   .pointLeft_z {
     color: #fff;
     margin-left: 3%;
-    /*margin-top: 0.3rem;*/
     font-size: 1.7rem;
     font-weight: 100;
   }
@@ -213,12 +199,10 @@
     border-radius: 50%;
     vertical-align: middle;
   }
-
   .info-router {
     display: block;
     border-bottom: 1px solid #ddd;
   }
-
   .headportrait h2 {
     font-size: .88rem;
     color: #333;
@@ -226,12 +210,10 @@
     display: flex;
     align-items: center;
   }
-
   .headportrait-div {
     display: flex;
     justify-content: left;
   }
-
   .headportrait-div p {
     text-align: left;
     line-height: 2rem;
@@ -242,7 +224,6 @@
     font-family: Arial;
     display: inline-block;
   }
-
   .exitlogin {
     width: 96%;
     margin: 1.9rem auto 0;
@@ -331,6 +312,7 @@
     transition: all 1s;
     animation: bounceIn .6s;
   }
+
   .cover-content {
     width: 94%;
     background: #fff;
@@ -341,6 +323,7 @@
     z-index: 1000;
     border-radius: 5px;
   }
+
   .sa-icon {
     width: 90px;
     height: 90px;
@@ -349,6 +332,7 @@
     margin: 20px auto;
     position: relative;
   }
+
   .sa-body {
     width: 5px;
     height: 47px;
@@ -359,6 +343,7 @@
     transform: translateX(-50%);
     top: 10px;
   }
+
   .sa-dot {
     width: 7px;
     height: 7px;
@@ -369,6 +354,7 @@
     transform: translateX(-50%);
     bottom: 10px;
   }
+
   .cover-content h2 {
     width: 100%;
     text-align: center;
@@ -377,14 +363,17 @@
     font-weight: 500;
     margin: 25px 0;
   }
-  .sa-botton{
+
+  .sa-botton {
     width: 100%;
     text-align: center;
   }
+
   .waiting {
     background: #c1c1c1;
     margin-right: .58rem;
   }
+
   .sa-botton button {
     display: inline-block;
     padding: .58rem 1.46rem;
@@ -394,17 +383,19 @@
     letter-spacing: 1px;
     margin-top: 26px;
   }
+
   .quitlogin {
     background: #dd6b55;
   }
-.mengban{
-  background: rgba(0,0,0,0.3);
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
+
+  .mengban {
+    background: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
 </style>

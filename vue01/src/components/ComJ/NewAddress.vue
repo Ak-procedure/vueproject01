@@ -41,7 +41,6 @@
       },
       created(){
           let name='';
-        console.log( this.$route.query.res);
           for (let v in this.$route.query.res) {
           name+= this.$route.query.res[v];
         }

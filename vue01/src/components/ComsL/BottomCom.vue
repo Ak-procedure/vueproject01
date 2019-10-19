@@ -3,35 +3,19 @@
     <van-tabbar v-model="active">
       <van-tabbar-item :to="{path:'/foods'}">
         <span>美食</span>
-        <img
-          slot="icon"
-          slot-scope="props"
-          :src="props.active ? icon.active : icon.normal"
-        >
+        <img slot="icon" slot-scope="props" :src="props.active ? icon.active : icon.normal">
       </van-tabbar-item>
       <van-tabbar-item :to="{path:'/search'}">
         <span>搜索</span>
-        <img
-          slot="icon"
-          slot-scope="props"
-          :src="props.active ? icon.active2 : icon.normal2"
-        >
+        <img slot="icon" slot-scope="props" :src="props.active ? icon.active2 : icon.normal2">
       </van-tabbar-item>
       <van-tabbar-item :to="{path:'/Order'}">
         <span>订单</span>
-        <img
-          slot="icon"
-          slot-scope="props"
-          :src="props.active ? icon.active3 : icon.normal3"
-        >
+        <img slot="icon" slot-scope="props" :src="props.active ? icon.active3 : icon.normal3">
       </van-tabbar-item>
       <van-tabbar-item :to="{path:'/mine'}">
         <span>我的</span>
-        <img
-          slot="icon"
-          slot-scope="props"
-          :src="props.active ? icon.active4 : icon.normal4"
-        >
+        <img slot="icon" slot-scope="props" :src="props.active ? icon.active4 : icon.normal4">
       </van-tabbar-item>
     </van-tabbar>
   </div>

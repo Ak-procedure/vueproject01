@@ -45,7 +45,6 @@
           },
         yan(){
             this.axios.post("https://elm.cangdu.org/v1/captchas").then((res)=>{
-              console.log(res.data.code);
               this.arr = res.data.code
             })
         },
@@ -53,10 +52,8 @@
             this.axios.post('https://elm.cangdu.org/v2/login',{username:this.IV1,password:this.IV2,captcha_code:this.IV3}).then((res)=>{
               console.log(res.data);
               if (res.data.type){
-                // console.log("验证失败");
                 alert(res.data.message);
               }else {
-                // console.log("验证成功");
                 this.$router.push({path:'/mine'})
               }
             })

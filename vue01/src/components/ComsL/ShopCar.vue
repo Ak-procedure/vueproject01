@@ -107,7 +107,6 @@
         //获取localStorage数据
         let arrays = [];
         let arrs1 = JSON.parse(window.localStorage.getItem('shopcar'));
-        // console.log(arrs1);
         for (let is in arrs1) {
           if (arrs1[is].name == v.name) {
             continue
@@ -115,7 +114,6 @@
           arrays.push(arrs1[is])
         }
         arrays.push(v);
-        // console.log(arrays);
         let shoparr = JSON.stringify(arrays);
         window.localStorage.setItem('shopcar', shoparr);
       },
@@ -128,7 +126,6 @@
         //获取localStorage数据
         let arrays = [];
         let arrs1 = JSON.parse(window.localStorage.getItem('shopcar'));
-        // console.log(arrs1);
         for (let is in arrs1) {
           if (arrs1[is].name == v.name) {
             continue
@@ -136,17 +133,13 @@
           arrays.push(arrs1[is])
         }
         arrays.push(v);
-        // console.log(arrays);
         let shoparr = JSON.stringify(arrays);
         window.localStorage.setItem('shopcar', shoparr);
       },
       jiesuan() {
         let arrs1 = JSON.parse(window.localStorage.getItem('shopcar'));
-        // console.log(arrs1);
         let arrd = []
-
         for (let index in arrs1) {
-          // console.log(arrs1[index].specfoods[0]);
           let entarr = [{
             attrs: [],
             extra: {},
@@ -168,12 +161,10 @@
           geohash: this.jwd,
           entities: arrd
         };
-        // console.log(objs);
         this.axios.post('https://elm.cangdu.org/v1/carts/checkout', objs).then((res) => {
           console.log(res.data);
           this.shows = false;
           this.cararr = [];
-          // window.localStorage.removeItem('shopcar');
         }).then(() => {
           this.$router.push({path: '/qrdingdan'})
         })

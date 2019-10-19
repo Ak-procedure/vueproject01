@@ -12,7 +12,7 @@
    <ul >
      <li v-if="show">商家</li>
      <li v-if="show">
-       <router-link class="flexs" :to="{path:'/shangjia',query:v}" v-for="(v,i) in arr1" :key="i">
+       <div  class="flexs"  @click="tiaoshangjia(v)" v-for="(v,i) in arr1" :key="i">
        <div class="imgDiv">
        <img :src="'//elm.cangdu.org/img/'+v.image_path" alt=""></div>
        <div class="resDiv">
@@ -20,7 +20,7 @@
          <p>月售{{v.recent_order_num}}单</p>
          <p>{{v.float_minimum_order_amount}}起送/距离{{v.distance}}</p>
        </div>
-       </router-link>
+       </div>
      </li>
      <li v-if="!show">搜索历史</li>
      <li  v-if="!show" v-for="(v,i) in hInputV" :key="i">
@@ -100,9 +100,13 @@
       sousuo(e){
         this.show=true;
         this.axios.get('https://elm.cangdu.org/v4/restaurants?geohash=31.22967,121.4762&keyword='+this.hInputV[e].inputtext).then((res) => {
-          console.log(res.data);
           this.arr1=res.data;
         });
+      },
+      tiaoshangjia(v){
+        let jsons= JSON.stringify(v);
+        window.localStorage.setItem('shangJXX',jsons);
+        this.$router.push({path:'/shangjia'})
       }
     }
   }

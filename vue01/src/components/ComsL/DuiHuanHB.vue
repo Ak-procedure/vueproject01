@@ -14,7 +14,7 @@
         </div>
       </div>
     </van-cell-group>
-    <van-button type="primary" @click="zzz" :disabled="show" class="btn" :class="{duihuan:add}">兑换</van-button>
+    <van-button type="primary" :disabled="show" class="btn" :class="{duihuan:add}">兑换</van-button>
     <div>{{gett}}</div>
   </div>
 </template>
@@ -34,7 +34,7 @@
       },
       computed:{
           gett(){
-            console.log('get触发');
+            // console.log('get触发');
             if (this.p2.length == 4 && this.p1.length > 0) {
               this.show = false;
               this.add = true;
@@ -53,14 +53,10 @@
               this.img = data.code;
             }
           )
-        },
-        zzz() {
-          console.log(123);
         }
       },
       created() {
         this.myHttp.post("/v1/captchas", 1, (data) => {
-            // console.log(data);
             this.img = data.code;
           }
         );

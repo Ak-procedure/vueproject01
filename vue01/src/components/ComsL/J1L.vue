@@ -19,16 +19,16 @@
       <ul>
         <li v-if="!shows" class="lef">搜索历史</li>
         <li v-if="shows" v-for="(v,i) in msgs" :key="i" class="lists">
-          <router-link @click.native="addLocal(v)" :to="{path:'/foods',query:v}">
+          <div @click="addLocal(v)">
             <p>{{v.name}}</p>
             <p>{{v.address}}</p>
-          </router-link>
+          </div>
         </li>
         <li v-if="!shows"  v-for="(v,i) in historySearcharr" :key="i" class="lists">
-          <router-link @click.native="addLocal(v)" :to="{path:'/foods',query:v}">
+          <div @click="addLocal(v)">
             <p>{{v.name}}</p>
             <p>{{v.address}}</p>
-          </router-link>
+          </div>
         </li>
         <li v-if="!shows" class="clearli" @click="removeh()">
           <span>清空所有</span>
@@ -45,7 +45,6 @@
       return {
         //从本地获取存储的城市信息
         city1: '',
-
         msgs: '',
         historySearcharr:[],
         shows:false
@@ -84,23 +83,27 @@
         };
         //声明空数组 存储原来的本地存储
         var arr=[];
-
         let getL= JSON.parse(storage.getItem('data'));
-        for (let v in getL) {
-          //遍历  通过name、属性匹配 如果相同说明有历史记录 跳过
-          if(getL[v].name==e.name&&getL[v].address==e.address){
-            continue
-          }else {
-            arr.push(getL[v]);
+
+          for (let v in getL) {
+            //遍历  通过name、属性匹配 如果相同说明有历史记录 跳过
+           if(getL[v].address==undefined) {
+             return
+            if(getL[v].name==e.name&&getL[v].address==e.address){
+              continue
+            }else {
+              arr.push(getL[v]);
+            }
           }
-        }
+      }
         arr.push(data);
         var d=JSON.stringify(arr);
         //更新本地存储
         storage.setItem("data",d);
+        this.$router.push({path:'/foods'})
       },
       removeh(){
-        //情况数据源 并移除本地
+        //清除数据源 并移除本地
         var storage=window.localStorage;
         this.historySearcharr=null;
         storage.removeItem('data');
@@ -188,14 +191,14 @@
     border-bottom: 1px solid #e4e4e4;
     background: white;
   }
- .lists>a>p:nth-child(1) {
+ .lists>div>p:nth-child(1) {
    margin: 0 auto .35rem;
     width: 90%;
     font-size: .65rem;
     color: #333;
  }
 
-  .lists>a>p:nth-child(2){
+  .lists>div>p:nth-child(2){
     width: 90%;
     margin: 0 auto .55rem;
     font-size: .45rem;

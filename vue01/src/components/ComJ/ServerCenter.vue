@@ -38,7 +38,6 @@
     methods: {
       ask() {
         this.axios.get("https://elm.cangdu.org/v3/profile/explain").then((res) => {
-          console.log(res.data);
           let a = 0;
           for (let i in res.data) {
             if (i != 'index') {

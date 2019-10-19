@@ -8,7 +8,6 @@
         <img src="./elm.png"/>
         <p>下载饿了么APP</p>
       </div>
-
   <button class="btn" @click="show=true" >下载</button>
 <transition name="a">
   <div class="tan" v-if="show">

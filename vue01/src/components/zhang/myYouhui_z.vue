@@ -88,7 +88,7 @@
       this.msg=this.$route.query.msg;
       this.axios.get('https://elm.cangdu.org/promotion/v2/users/1/hongbaos?limit=20&offset=0').then((res)=>{
         this.hnArr=res.data;
-        console.log(res.data);
+        // console.log(res.data);
       })
     },
     methods:{

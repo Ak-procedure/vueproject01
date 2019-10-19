@@ -46,7 +46,6 @@
       </div>
     </ul>
     <div class="lx" v-if="show">
-      <!--<img src="./5.png" alt="" @click="show=!show">-->
     </div>
   </div>
 </template>
@@ -67,7 +66,6 @@
 
     },
     created() {
-      console.log(this.$route.query);
       this.arr = this.$route.query;
       this.$store.state.shopcar = false;
       this.$store.state.showOrNot = false;

@@ -40,13 +40,13 @@
     methods:{
       yan(){
         this.axios.post("https://elm.cangdu.org/v1/captchas").then((response) => {
-          console.log(response.data.code);
+          // console.log(response.data.code);
           this.arr = response.data.code
         })
       },
       chongzhimima(){
         this.axios.post('https://elm.cangdu.org/v2/changepassword',{username:this.I1,oldpassWord:this.I2,newpassword:this.I3,confirmpassword:this.I4,captcha_code:this.I5}).then((res)=>{
-          console.log(res.data);
+          // console.log(res.data);
           if(res.data.type){
              alert(res.data.message);
           }else {

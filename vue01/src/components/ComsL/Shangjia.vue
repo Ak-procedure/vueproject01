@@ -2,7 +2,7 @@
   <div id="SH">
     <div id="Shangjia">
       <div id="header">
-        <span class="backS" @click="back">返回</span>
+        <span class="backS" @click="backs">返回</span>
         <!--商家页面的头部描述-->
         <router-link :to="{path:'/ShopDetail',query: getS}">
           <div class="cards">
@@ -188,6 +188,7 @@
 
 <script>
   import Vue from 'vue'
+
   export default {
     name: "Shangjia",
     data() {
@@ -233,6 +234,7 @@
       });
       //通过id搜索商家
       this.axios.get("https://elm.cangdu.org/shopping/v2/menu?restaurant_id=" + this.getS.id).then((res) => {
+        console.log(res.data);
         this.shangpin = res.data;
       }).then(() => {
         //控制动画
@@ -264,15 +266,14 @@
         let restaurant_id = this.getS.id;
         let geohash = this.getS.location[1] + ',' + this.getS.location[0];
         window.localStorage.setItem('restaurant_id', restaurant_id);
-        window.localStorage.setItem('geohash', geohash);
       }
     },
     methods: {
       checkit(index) {
         this.index = index;
       },
-      back() {
-        this.$router.go(-1)
+      backs() {
+        this.$router.push({path:'/foods'})
       },
       showfoods(e) {
         this.showF = e;
@@ -361,27 +362,27 @@
       },
       //购物车数量增加
       addShopCar2(e, v, i) {
-      let cs=  document.getElementsByClassName('spanthree');
-     let div1= document.createElement('div');
-     div1.innerHTML='+1';
-     div1.style.fontSize='0.8rem';
-     div1.style.width='30px';
-     div1.style.height='30px';
-     div1.style.borderRadius='50%';
-     div1.style.background='#3190e8';
-     div1.style.position='fixed';
-     div1.style.zIndex=1000;
-     div1.style.top=e.clientY-15+'px';
-     div1.style.left=e.clientX-15+'px';
-     div1.style.transition='all 1s';
-     cs[i].appendChild(div1);
-  setTimeout(function () {
-    div1.style.top='610px';
-    div1.style.left='10px';
-  },200);
-setTimeout(function () {
-  cs[i].removeChild(div1);
-},1000);
+        let cs = document.getElementsByClassName('spanthree');
+        let div1 = document.createElement('div');
+        div1.innerHTML = '+1';
+        div1.style.fontSize = '0.8rem';
+        div1.style.width = '30px';
+        div1.style.height = '30px';
+        div1.style.borderRadius = '50%';
+        div1.style.background = '#3190e8';
+        div1.style.position = 'fixed';
+        div1.style.zIndex = 1000;
+        div1.style.top = e.clientY - 15 + 'px';
+        div1.style.left = e.clientX - 15 + 'px';
+        div1.style.transition = 'all 1s';
+        cs[i].appendChild(div1);
+        setTimeout(function () {
+          div1.style.top = '610px';
+          div1.style.left = '10px';
+        }, 200);
+        setTimeout(function () {
+          cs[i].removeChild(div1);
+        }, 1000);
         Vue.set(this.arrnm, i, 1);
         if (v.zidingyi == undefined) {
           v.zidingyi = 1
@@ -906,9 +907,11 @@ setTimeout(function () {
     float: left;
     position: relative;
   }
-.spanthree>div{
-  background: gold;
-}
+
+  .spanthree > div {
+    background: gold;
+  }
+
   .countjia > span > span {
     display: block;
     margin-top: -0.4rem;
@@ -1008,6 +1011,7 @@ setTimeout(function () {
   }
 
   #animat {
+    /*aaa*/
     width: 5rem;
     height: 5rem;
     margin: 70% auto;
@@ -1024,6 +1028,7 @@ setTimeout(function () {
   }
 
   #anis {
+    /*ccc*/
     background: rgb(211, 211, 211);
     border-radius: 50%;
     display: block;

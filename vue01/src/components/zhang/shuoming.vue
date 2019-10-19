@@ -30,7 +30,7 @@
           this.myHttp.get("/v3/profile/explain", (data) => {
             this.QandA = data.couponContent.split("###");
             for (let i = 1; i < this.QandA.length; i++) {
-              this.QandA[i] = this.QandA[i].replace(/(?<=[\u4e00-\u9fa5]+)\s/g, "？");
+              this.QandA[i] = this.QandA[i].replace(/([\u4e00-\u9fa5]+)\s/g, "？");
               this.NewArr.push(this.QandA[i].split("？"));
             }
           })
